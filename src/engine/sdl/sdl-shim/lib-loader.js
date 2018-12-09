@@ -16,33 +16,31 @@ function getLibraryPath() {
 function getWindowsLibraryPath() {
     const dir = __dirname;
     const arch = process.arch;
+    const libName = 'SDL2';
 
-    return `${dir}/libs/windows/${arch}`;
+    return `${dir}/libs/windows/${arch}/${libName}.dll`;
 }
 
 function getOSXLibraryPath() {
     const dir = __dirname;
     const arch = process.arch;
+    const libName = 'libSDL2';
+    const version = '2.0';
 
-    return `${dir}/libs/osx/${arch}`;
+    return `${dir}/libs/osx/${arch}/${libName}-${version}.dylib`;
 }
 
 function getLinuxLibraryPath() {
     const dir = __dirname;
     const arch = process.arch;
+    const libName = 'libSDL2';
 
-    return `${dir}/libs/linux/${arch}`;
+    return `${dir}/libs/linux/${arch}/${libName}.so`;
 }
 
 function load(library, module, moduleExports) {
-    if (library === 'libSDL2') {
-        library = 'libSDL2-2.0';
-    } else {
-        library = 'SDL2-2.0';
-    }
-    const path = getLibraryPath();
-    const moduleLibrary = `${path}/${library}`;
-
+    const moduleLibrary = getLibraryPath();
+    // const moduleLibrary = `${path}/${library}`;
     ffi.Library(moduleLibrary, module, moduleExports);
 }
 
