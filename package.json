@@ -30,6 +30,7 @@
     "canvas": "^2.1.0",
     "color-rgba": "^2.1.0",
     "ffi": "github:node-ffi/node-ffi#169773d",
+    "jsdom": "^13.0.0",
     "pngjs": "^3.3.3",
     "ref-array": "^1.2.0",
     "ref-union": "^1.0.1"

@@ -1,3 +1,7 @@
+const jsdom = require('jsdom');
+const {JSDOM} = jsdom;
+
+
 export class NativeDocument implements Document {
     readonly ATTRIBUTE_NODE: number;
     readonly CDATA_SECTION_NODE: number;
@@ -174,8 +178,10 @@ export class NativeDocument implements Document {
     readonly visibilityState: VisibilityState;
     vlinkColor: string;
     canvas: HTMLCanvasElement;
+    document: any;
 
     constructor(private globalCtx: any) {
+        this.document = new JSDOM(`<body></body>`).window.document;
     }
 
     // addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -184,212 +190,218 @@ export class NativeDocument implements Document {
     // addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     // addEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: any, options?: boolean | AddEventListenerOptions): void {
+        this.document.addEventListener(type, listener, options);
     }
 
     adoptNode<T extends Node>(source: T): T {
-        return undefined;
+        return this.document.adoptNode(source);
     }
 
     append(...nodes: (Node | string)[]): void {
+        return this.document.append(nodes);
     }
 
     appendChild<T extends Node>(newChild: T): T {
-        return undefined;
+        return this.document.appendChild(newChild);
     }
 
     captureEvents(): void {
+        this.document.captureEvents();
     }
 
     caretPositionFromPoint(x: number, y: number): CaretPosition | null {
-        return undefined;
+        return this.document.caretPositionFromPoint(x, y);
     }
 
     caretRangeFromPoint(x: number, y: number): Range {
-        return undefined;
+        return this.document.caretRangeFromPoint(x, y);
     }
 
     clear(): void {
+        return this.document.clear();
     }
 
     cloneNode(deep?: boolean): Node {
-        return undefined;
+        return this.document.cloneNode(deep);
     }
 
     close(): void {
+        return this.document.close();
     }
 
     compareDocumentPosition(other: Node): number {
-        return 0;
+        return this.document.compareDocumentPosition(other);
     }
 
     contains(other: Node | null): boolean {
-        return false;
+        return this.document.contains(other);
     }
 
     createAttribute(localName: string): Attr {
-        return undefined;
+        return this.document.createAttribute(localName);
     }
 
     createAttributeNS(namespace: string | null, qualifiedName: string): Attr {
-        return undefined;
+        return this.document.createAttributeNS(namespace);
     }
 
     createCDATASection(data: string): CDATASection {
-        return undefined;
+        return this.document.createCDATASection(data);
     }
 
     createComment(data: string): Comment {
-        return undefined;
+        return this.document.createComment(data);
     }
 
     createDocumentFragment(): DocumentFragment {
-        return undefined;
+        return this.document.createDocumentFragment();
     }
 
     // createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): any;
     // createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, options?: ElementCreationOptions): any;
     // createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;
     createElement(tagName: string, options?: ElementCreationOptions): any | HTMLElement {
-        // const canvas = createCa
-        return undefined;
-    }
-    createElementNS(namespaceURI: string | null, qualifiedName: string, options?: ElementCreationOptions): any {
-        return undefined;
-    }
-
-    createEvent(eventInterface: any): any {
-        return undefined;
-    }
-
-    createNodeIterator(root: Node, whatToShow?: number, filter?: NodeFilter | null): NodeIterator {
-        return undefined;
-    }
-
-    createProcessingInstruction(target: string, data: string): ProcessingInstruction {
-        return undefined;
-    }
-
-    createRange(): Range {
-        return undefined;
-    }
-
-    createTextNode(data: string): Text {
-        return undefined;
-    }
-
-    createTouch(view: WindowProxy, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch {
-        return undefined;
-    }
-
-    createTouchList(...touches: Touch[]): TouchList {
-        return undefined;
-    }
-
-    createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker {
-        return undefined;
-    }
-
-    dispatchEvent(event: Event): boolean {
-        return false;
-    }
-
-    elementFromPoint(x: number, y: number): Element | null {
-        return undefined;
-    }
-
-    elementsFromPoint(x: number, y: number): Element[] {
-        return [];
-    }
-
-    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult {
-        return undefined;
-    }
-
-    execCommand(commandId: string, showUI?: boolean, value?: string): boolean {
-        return false;
-    }
-
-    exitFullscreen(): Promise<void> {
-        return undefined;
-    }
-
-    getAnimations(): Animation[] {
-        return [];
-    }
-
-    private createCanvas(title: string) {
-        if (this.canvas === undefined) {
-            this.canvas = this.globalCtx.createCanvas('');
+        if (tagName === 'canvas') {
+            const canvas = this.globalCtx.createCanvas('');
+            return canvas;
+        } else {
+            const el = this.document.createElement(tagName);
+            return el;
         }
     }
 
-    getElementById(elementId: string): HTMLElement | any | Element {
-        this.createCanvas(elementId);
+    createElementNS(namespaceURI: string | null, qualifiedName: string, options?: ElementCreationOptions): any {
+        return this.document.createElementNS(namespaceURI);
+    }
 
-        return this.canvas;
+    createEvent(eventInterface: any): any {
+        return this.document.createEvent(eventInterface);
+    }
+
+    createNodeIterator(root: Node, whatToShow?: number, filter?: NodeFilter | null): NodeIterator {
+        return this.document.createNodeIterator(root);
+    }
+
+    createProcessingInstruction(target: string, data: string): ProcessingInstruction {
+        return this.document.createProcessingInstruction(target);
+    }
+
+    createRange(): Range {
+        return this.document.createRange();
+    }
+
+    createTextNode(data: string): Text {
+        return this.document.createTextNode(data);
+    }
+
+    createTouch(view: WindowProxy, target: EventTarget, identifier: number, pageX: number, pageY: number, screenX: number, screenY: number): Touch {
+        return this.document.createTouch(view);
+    }
+
+    createTouchList(...touches: Touch[]): TouchList {
+        return this.document.createTouchList(touches);
+    }
+
+    createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null, entityReferenceExpansion?: boolean): TreeWalker {
+        return this.document.createTreeWalker(root);
+    }
+
+    dispatchEvent(event: Event): boolean {
+        return this.document.dispatchEvent(event);
+    }
+
+    elementFromPoint(x: number, y: number): Element | null {
+        return this.document.elementFromPoint(x, y);
+    }
+
+    elementsFromPoint(x: number, y: number): Element[] {
+        return this.document.elementsFromPoint(x, y);
+    }
+
+    evaluate(expression: string, contextNode: Node, resolver: XPathNSResolver | null, type: number, result: XPathResult | null): XPathResult {
+        return this.document.evaluate(expression, contextNode, resolver);
+    }
+
+    execCommand(commandId: string, showUI?: boolean, value?: string): boolean {
+        return this.document.execCommand(commandId);
+    }
+
+    exitFullscreen(): Promise<void> {
+        return this.document.exitFullscreen();
+    }
+
+    getAnimations(): Animation[] {
+        return this.document.getAnimations();
+    }
+
+    getElementById(elementId: string): HTMLElement | any | Element {
+        if (this.canvas) {
+            return this.document.getElementById(elementId);
+        } else {
+            this.canvas = this.globalCtx.createCanvas('');
+            return this.canvas;
+        }
     }
 
     getElementsByClassName(classNames: string): HTMLCollectionOf<Element> {
-        return undefined;
+        return this.document.getElementsByClassName(classNames);
     }
 
     getElementsByName(elementName: string): NodeListOf<HTMLElement> {
-        return undefined;
+        return this.document.getElementsByName(elementName);
     }
 
 
     getElementsByTagName(qualifiedName: any): any {
+        return this.document.getElementsByTagName(qualifiedName);
     }
 
-    getElementsByTagNameNS(namespaceURI: 'http://www.w3.org/1999/xhtml', localName: string): HTMLCollectionOf<HTMLElement>;
-    getElementsByTagNameNS(namespaceURI: 'http://www.w3.org/2000/svg', localName: string): HTMLCollectionOf<SVGElement>;
-    getElementsByTagNameNS(namespaceURI: string, localName: string): HTMLCollectionOf<Element>;
-    getElementsByTagNameNS(namespaceURI: 'http://www.w3.org/1999/xhtml' | 'http://www.w3.org/2000/svg' | string, localName: string): HTMLCollectionOf<HTMLElement> | HTMLCollectionOf<SVGElement> | HTMLCollectionOf<Element> {
-        return undefined;
+    getElementsByTagNameNS(namespaceURI: string, localName: string): any {
+        return this.document.getElementsByTagNameNS(namespaceURI, localName);
     }
 
     getRootNode(options?: GetRootNodeOptions): Node {
-        return undefined;
+        return this.document.getRootNode(options);
     }
 
     getSelection(): Selection | null {
-        return undefined;
+        return this.document.getSelection();
     }
 
     hasChildNodes(): boolean {
-        return false;
+        return this.document.hasChildNodes();
     }
 
     hasFocus(): boolean {
-        return false;
+        return this.document.hasFocus();
     }
 
     importNode<T extends Node>(importedNode: T, deep: boolean): T {
-        return undefined;
+        return this.document.importNode(importedNode, deep);
     }
 
     insertBefore<T extends Node>(newChild: T, refChild: Node | null): T {
-        return undefined;
+        return this.document.insertBefore(newChild, refChild);
     }
 
     isDefaultNamespace(namespace: string | null): boolean {
-        return false;
+        return this.document.isDefaultNamespace(namespace);
     }
 
     isEqualNode(otherNode: Node | null): boolean {
-        return false;
+        return this.document.isEqualNode(otherNode);
     }
 
     isSameNode(otherNode: Node | null): boolean {
-        return false;
+        return this.document.isSameNode(otherNode);
     }
 
     lookupNamespaceURI(prefix: string | null): string | null {
-        return undefined;
+        return this.document.lookupNamespaceURI(prefix);
     }
 
     lookupPrefix(namespace: string | null): string | null {
-        return undefined;
+        return this.document.lookupPrefix(namespace);
     }
 
     normalize(): void {
@@ -400,6 +412,7 @@ export class NativeDocument implements Document {
     }
 
     prepend(...nodes: (Node | string)[]): void {
+        return this.document.prepend(nodes);
     }
 
     queryCommandEnabled(commandId: string): boolean {
@@ -426,12 +439,15 @@ export class NativeDocument implements Document {
     querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
     querySelector<E extends Element = Element>(selectors: string): E | null;
     querySelector(selectors: any): any {
+
+        return this.document.querySelector(selectors);
     }
 
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>;
     querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>;
     querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
     querySelectorAll(selectors: any): any {
+        return this.document.querySelectorAll(selectors);
     }
 
     releaseEvents(): void {
@@ -445,7 +461,7 @@ export class NativeDocument implements Document {
     }
 
     replaceChild<T extends Node>(newChild: Node, oldChild: T): T {
-        return undefined;
+        return this.document.replaceChild(newChild, oldChild);
     }
 
     write(...text: string[]): void {
