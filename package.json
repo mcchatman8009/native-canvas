@@ -7,9 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint -p . -c tslint.json 'src/**/*.ts'",
-    "mkdirs": "mkdir -p dist/engine/sdl/sdl-shim",
-    "libs": "cp -r src/engine/sdl/sdl-shim dist/engine/sdl",
-    "build": "rm -rf dist && mkdir -p dist/engine/sdl/sdl-shim && cp -r src/engine/sdl/sdl-shim dist/engine/sdl && tsc",
+    "mkdirs": "mkdir -p dist/engine/sdl/sdl/libs",
+    "libs": "cp -r src/engine/sdl/sdl/libs dist/engine/sdl/sdl",
+    "build": "rm -rf dist && mkdir -p dist/engine/sdl/sdl/libs && cp -r src/engine/sdl/sdl/libs dist/engine/sdl/sdl && tsc",
     "compile": "tsc",
     "clean": "rm -rf dist package-lock.json"
   },

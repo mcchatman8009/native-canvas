@@ -1,6 +1,6 @@
 import {WindowOptions} from '../../../window/window-options';
+import {SDL_WindowFlags} from '../sdl';
 
-const SDL_video = require('../sdl-shim/SDL_video');
 
 export function sdlWindowDefaults(): WindowOptions {
     const opts = {} as any;
@@ -35,15 +35,15 @@ export function getSdlWindowOptions(options: WindowOptions): { title: string, x:
     /*tslint:disable*/
     let flags = 0;
 
-    flags |= opts.fullscreen ? SDL_video.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
-    flags |= opts.show ? SDL_video.SDL_WindowFlags.SDL_WINDOW_SHOWN : SDL_video.SDL_WindowFlags.SDL_WINDOW_HIDDEN;
-    flags |= opts.resizable ? SDL_video.SDL_WindowFlags.SDL_WINDOW_RESIZABLE : 0;
-    flags |= opts.borderless ? SDL_video.SDL_WindowFlags.SDL_WINDOW_BORDERLESS : 0;
-    flags |= opts.minimized ? SDL_video.SDL_WindowFlags.SDL_WINDOW_MINIMIZED : 0;
-    flags |= opts.maximized ? SDL_video.SDL_WindowFlags.SDL_WINDOW_MAXIMIZED : 0;
-    flags |= opts.allowHighDPI ? SDL_video.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI : 0;
-    // flags |= opts.mouseCapture ? SDL_video.SDL_WindowFlags.SDL_WINDOW_MOUSE_CAPTURE : 0;
-    flags |= opts.grabInputFocus ? SDL_video.SDL_WindowFlags.SDL_WINDOW_INPUT_GRABBED : 0;
+    flags |= opts.fullscreen ? SDL_WindowFlags.SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
+    flags |= opts.show ? SDL_WindowFlags.SDL_WINDOW_SHOWN : SDL_WindowFlags.SDL_WINDOW_HIDDEN;
+    flags |= opts.resizable ? SDL_WindowFlags.SDL_WINDOW_RESIZABLE : 0;
+    flags |= opts.borderless ? SDL_WindowFlags.SDL_WINDOW_BORDERLESS : 0;
+    flags |= opts.minimized ? SDL_WindowFlags.SDL_WINDOW_MINIMIZED : 0;
+    flags |= opts.maximized ? SDL_WindowFlags.SDL_WINDOW_MAXIMIZED : 0;
+    flags |= opts.allowHighDPI ? SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI : 0;
+    // flags |= opts.mouseCapture ? SDL_WindowFlags.SDL_WINDOW_MOUSE_CAPTURE : 0;
+    flags |= opts.grabInputFocus ? SDL_WindowFlags.SDL_WINDOW_INPUT_GRABBED : 0;
     /*tslint:enable*/
 
     const title = opts.title;

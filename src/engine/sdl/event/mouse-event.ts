@@ -1,8 +1,5 @@
 import {SdlWindow} from '../sdl-window/sdl-window';
-import {SDL_GetKeyboardState, SDL_Scancode} from '../sdl';
-
-const SDL_mouse = require('../sdl-shim/SDL_mouse');
-const ref = require('ref');
+import {SDL_GetGlobalMouseState} from '../sdl/sdl-mouse';
 
 export function getCurrentMouseEvent(sdlEvent: any, window: SdlWindow): MouseEvent {
     const event = {} as any;
@@ -13,13 +10,11 @@ export function getCurrentMouseEvent(sdlEvent: any, window: SdlWindow): MouseEve
 
     const mouseButtonEvt = sdlEvent.button;
 
-    const screenX = ref.alloc('int');
-    const screenY = ref.alloc('int');
-    SDL_mouse.SDL_GetGlobalMouseState(screenX, screenY);
+    const screen = SDL_GetGlobalMouseState();
     // const button = sdlEvent.button.button;
 
-    event.screenX = screenX.deref();
-    event.screenY = screenY.deref();
+    event.screenX = screen.x;
+    event.screenY = screen.y;
 
     event.offsetX = sdlEvent.motion.x - window.canvasX;
     event.offsetY = sdlEvent.motion.y - window.canvasX;

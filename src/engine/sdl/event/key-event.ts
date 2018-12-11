@@ -1,9 +1,7 @@
 import {SdlWindow} from '../sdl-window/sdl-window';
-import {SDL_Keymod} from '../sdl';
+import {SDL_GetKeyName, SDL_GetScancodeName, SDL_Keymod} from '../sdl';
 
-const SDL_keyboard = require('../sdl-shim/SDL_keyboard');
 const keymod = SDL_Keymod;
-
 const KMOD_KEYS = Object.keys(keymod);
 
 export function getCurrentKeyEvent(sdlEvent: any, window: SdlWindow): KeyboardEvent {
@@ -69,7 +67,7 @@ export function getCurrentKeyEvent(sdlEvent: any, window: SdlWindow): KeyboardEv
 }
 
 function getKeyCode(key: any) {
-    const codeName = SDL_keyboard.SDL_GetScancodeName(key.keysym.scancode);
+    const codeName = SDL_GetScancodeName(key.keysym.scancode);
 
     if (codeName.length === 1 && codeName.match(/[A-Z]/i)) {
         return `Key${codeName}`;
@@ -81,7 +79,7 @@ function getKeyCode(key: any) {
 }
 
 function getKey(key: any) {
-    const keyName = SDL_keyboard.SDL_GetKeyName(key.keysym.sym);
+    const keyName = SDL_GetKeyName(key.keysym.sym);
 
     if (keyName.length === 1 && keyName.match(/[A-Z]/i)) {
         return keyName.toLowerCase();

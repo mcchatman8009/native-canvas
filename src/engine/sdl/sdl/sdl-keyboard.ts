@@ -1,4 +1,16 @@
-const SDL_keyboard = require('../sdl-shim/SDL_keyboard');
+import {loadLibrary} from './lib-loader';
+import {SDL_Rect_ptr} from './sdl-rect';
+import {int32_ptr, string, Uint16, uint32, Uint32, Uint8_ptr, voit} from './types';
+import {SDL_Keycode} from './sdl-keycode';
+import {SDL_Window_ptr} from './sdl-video';
+
+const Struct = require('ref-struct');
+
+const SDL = {} as any;
+
+export function SDL_GetKeyboardState(numOfKeysPtr: any) {
+    return SDL.SDL_GetKeyboardState(numOfKeysPtr);
+}
 
 export const SDL_Keymod = {
     KMOD_NONE: 0,
@@ -261,6 +273,36 @@ export const SDL_Scancode = {
     SDL_NUM_SCANCODES: 512,
 } as any;
 
-export function SDL_GetKeyboardState(numOfKeysPtr: any) {
-    return SDL_keyboard.SDL_GetKeyboardState(numOfKeysPtr);
+export const SDL_Keysym = Struct({
+    scancode: uint32,
+    sym: SDL_Keycode,
+    mod: Uint16,
+    unused: Uint32,
+});
+
+export function SDL_GetScancodeName(keyCode: number): string {
+    return SDL.SDL_GetScancodeName(keyCode);
 }
+
+export function SDL_GetKeyName(keyCode: number): string {
+    return SDL.SDL_GetKeyName(keyCode);
+}
+
+loadLibrary({
+    SDL_GetKeyboardFocus: [SDL_Window_ptr, []],
+    SDL_GetKeyboardState: [Uint8_ptr, [int32_ptr]],
+    SDL_GetModState: [uint32, []],
+    SDL_SetModState: [voit, [uint32]],
+    SDL_GetKeyFromScancode: [SDL_Keycode, [uint32]],
+    SDL_GetScancodeFromKey: [uint32, [SDL_Keycode]],
+    SDL_GetScancodeName: [string, [uint32]],
+    SDL_GetScancodeFromName: [uint32, [string]],
+    SDL_GetKeyName: [string, [SDL_Keycode]],
+    SDL_GetKeyFromName: [SDL_Keycode, [string]],
+    SDL_StartTextInput: [voit, []],
+    SDL_IsTextInputActive: [uint32, []],
+    SDL_StopTextInput: [voit, []],
+    SDL_SetTextInputRect: [voit, [SDL_Rect_ptr]],
+    SDL_HasScreenKeyboardSupport: [uint32, []],
+    SDL_IsScreenKeyboardShown: [uint32, [SDL_Window_ptr]],
+}, SDL);

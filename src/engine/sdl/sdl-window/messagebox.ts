@@ -1,4 +1,4 @@
-import {SDL_Create_MessageBoxButtonData, SDL_ShowMessageBox} from '../sdl/sdl-messagebox';
+import {SDL_Create_MessageBoxButtonData, SDL_ShowMessageBox} from '../sdl';
 
 export function confirm(message: string, windowPtr: any = null): boolean {
 

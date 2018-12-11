@@ -6,13 +6,37 @@ import {WindowOptions} from '../../../window/window-options';
 import {getSdlWindowOptions, sdlWindowDefaults} from './sdl-window-opts';
 import {createSdlContext2D} from '../sdl-context';
 import {alert, confirm} from './messagebox';
-import {SDL_ENABLE, SDL_EventState, SDL_EventType} from '../sdl';
+import {
+    SDL_CreateWindow,
+    SDL_DestroyWindow,
+    SDL_ENABLE,
+    SDL_EventState,
+    SDL_EventType, SDL_GetWindowBordersSize,
+    SDL_GetWindowFlags, SDL_GetWindowID,
+    SDL_GetWindowMaximumSize,
+    SDL_GetWindowMinimumSize,
+    SDL_GetWindowPosition,
+    SDL_GetWindowSize,
+    SDL_GetWindowTitle, SDL_HideWindow,
+    SDL_MaximizeWindow,
+    SDL_MinimizeWindow,
+    SDL_RaiseWindow,
+    SDL_RestoreWindow, SDL_SetWindowBordered,
+    SDL_SetWindowFullscreen,
+    SDL_SetWindowGrab,
+    SDL_SetWindowMaximumSize,
+    SDL_SetWindowMinimumSize,
+    SDL_SetWindowModalFor,
+    SDL_SetWindowPosition,
+    SDL_SetWindowResizable,
+    SDL_SetWindowSize,
+    SDL_SetWindowTitle, SDL_ShowWindow,
+    SDL_WindowEventID,
+    SDL_WindowFlags
+} from '../sdl';
 import {getCurrentMouseEvent} from '../event/mouse-event';
 import {getCurrentKeyEvent} from '../event/key-event';
 
-const SDL_video = require('../sdl-shim/SDL_video');
-const utils = require('../sdl-shim/utils');
-const ref = require('ref');
 const createInternalCanvas = require('canvas').createCanvas;
 
 export class SdlWindow extends EventEmitter implements NativeWindow {
@@ -561,7 +585,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         const sdlOpts = getSdlWindowOptions(this.options);
 
         // Create the window, and store its pointer;
-        this.windowPtr = SDL_video.SDL_CreateWindow(sdlOpts.title, sdlOpts.x, sdlOpts.y, sdlOpts.w, sdlOpts.h, sdlOpts.flags);
+        this.windowPtr = SDL_CreateWindow(sdlOpts.title, sdlOpts.x, sdlOpts.y, sdlOpts.w, sdlOpts.h, sdlOpts.flags);
 
         // Create a SDL Context to handle the abstractions
         this.context = createSdlContext2D(this.windowPtr);
@@ -588,37 +612,37 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
             if (event.type === SDL_EventType.SDL_WINDOWEVENT) {
                 const evt = event.window.event;
 
-                if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_SHOWN) {
+                if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_SHOWN) {
                     this.emit('show');
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_HIDDEN) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_HIDDEN) {
                     this.emit('hide');
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_EXPOSED) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_EXPOSED) {
                     // this.triggerWindowSizeChange();
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_MOVED) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_MOVED) {
                     this.emit('move', event.window.data1, event.window.data2);
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_RESIZED) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_RESIZED) {
                     this.triggerWindowSizeChange();
                     this.emit('resize', event.window.data1, event.window.data2);
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_SIZE_CHANGED) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_SIZE_CHANGED) {
                     // this._change(event.window.data1, event.window.data2);
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_MINIMIZED) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_MINIMIZED) {
                     this.emit('minimize');
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_MAXIMIZED) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_MAXIMIZED) {
                     this.emit('maximize');
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_RESTORED) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_RESTORED) {
                     this.emit('restore');
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_ENTER) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_ENTER) {
                     this.hasMouseEntered = true;
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_LEAVE) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_LEAVE) {
                     if (this.lastMouseEvent) {
                         this.emit('mouseleave', this.lastMouseEvent);
                     }
                     this.hasMouseEntered = false;
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_FOCUS_GAINED) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_FOCUS_GAINED) {
                     this.emit('focus');
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_FOCUS_LOST) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_FOCUS_LOST) {
                     this.emit('blur');
-                } else if (evt === SDL_video.SDL_WindowEventID.SDL_WINDOWEVENT_CLOSE) {
+                } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_CLOSE) {
                     this.close();
                 }
             }
@@ -688,7 +712,6 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
                 const domEvent = getCurrentMouseEvent(event, this);
                 this.emit('mouseup', domEvent);
             }
-
         });
     }
 
@@ -717,11 +740,11 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     }
 
     grab() {
-        SDL_video.SDL_SetWindowGrab(this.windowPtr, true);
+        SDL_SetWindowGrab(this.windowPtr, true);
     }
 
     focus() {
-        SDL_video.SDL_RaiseWindow(this.windowPtr);
+        SDL_RaiseWindow(this.windowPtr);
     }
 
     close() {
@@ -734,12 +757,12 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
     destroy() {
         // this.rendererPtr.destroy();
-        SDL_video.SDL_DestroyWindow(this.windowPtr);
+        SDL_DestroyWindow(this.windowPtr);
         this.emit('closed');
     }
 
     restore() {
-        SDL_video.SDL_RestoreWindow(this.windowPtr);
+        SDL_RestoreWindow(this.windowPtr);
     }
 
     center() {
@@ -748,14 +771,14 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
     setModal(win: SdlWindow) {
         if (win && win.windowPtr) {
-            SDL_video.SDL_SetWindowModalFor(win.windowPtr, this.windowPtr);
+            SDL_SetWindowModalFor(win.windowPtr, this.windowPtr);
         }
     }
 
 
     set maximize(_maximized) {
         if (!!_maximized) {
-            SDL_video.SDL_MaximizeWindow(this.windowPtr);
+            SDL_MaximizeWindow(this.windowPtr);
         } else if (this.maximize) {
             this.restore();
         }
@@ -763,13 +786,13 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
     get maximize() {
         /*tslint:disable*/
-        return !!(SDL_video.SDL_GetWindowFlags(this.windowPtr) & SDL_video.SDL_WindowFlags.SDL_WINDOW_MAXIMIZED);
+        return !!(SDL_GetWindowFlags(this.windowPtr) & SDL_WindowFlags.SDL_WINDOW_MAXIMIZED);
         /*tslint:enable*/
     }
 
     set minimize(_minimized) {
         if (!!_minimized) {
-            SDL_video.SDL_MinimizeWindow(this.windowPtr);
+            SDL_MinimizeWindow(this.windowPtr);
         } else if (this.minimize) {
             this.restore();
         }
@@ -777,32 +800,26 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
     get minimize() {
         /*tslint:disable*/
-        return !!(SDL_video.SDL_GetWindowFlags(this.windowPtr) & SDL_video.SDL_WindowFlags.SDL_WINDOW_MINIMIZED);
+        return !!(SDL_GetWindowFlags(this.windowPtr) & SDL_WindowFlags.SDL_WINDOW_MINIMIZED);
         /*tslint:enable*/
     }
 
-    set fullScreen(full: any) {
-        /*tslint:disable*/
-        if (full == 'kiosk') {
-            full = SDL_video.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN;
-        } else if (!!full) {
-            full = SDL_video.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN_DESKTOP;
+    set fullScreen(full: boolean) {
+        if (full) {
+            SDL_SetWindowFullscreen(this.windowPtr, SDL_WindowFlags.SDL_WINDOW_FULLSCREEN_DESKTOP);
         } else {
-            full = 0;
+            SDL_SetWindowFullscreen(this.windowPtr, 0);
         }
-        /*tslint:enable*/
 
-        SDL_video.SDL_SetWindowFullscreen(this.windowPtr, full);
     }
 
-    get fullScreen(): any {
+    get fullScreen(): boolean {
         /*tslint:disable*/
-        return !!(SDL_video.SDL_GetWindowFlags(this.windowPtr) & SDL_video.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN);
+        return !!(SDL_GetWindowFlags(this.windowPtr) & SDL_WindowFlags.SDL_WINDOW_FULLSCREEN);
         /*tslint:enable*/
     }
 
     set bounds(rect: { x: number, y: number, w: number, h: number }) {
-        rect = utils.arraylike2obj(rect, 'x,y,w,h');
         this.position = rect;
         this.size = rect;
     }
@@ -810,30 +827,21 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     get bounds(): { x: number, y: number, w: number, h: number } {
         const position = this.position;
         const size = this.size;
-        return utils.arraylike({
+
+        return {
             x: position.x,
             y: position.y,
             w: size.w,
             h: size.h
-        });
+        };
     }
 
     set size(val: { w: number, h: number }) {
-        // const size = this.size;
-        // const w = wh.w >= 0 ? wh.w : (wh[0] >= 0 ? wh[0] : size.w);
-        // const h = wh.h >= 0 ? wh.h : (wh[1] >= 0 ? wh[1] : size.h);
-        SDL_video.SDL_SetWindowSize(this.windowPtr, val.w, val.h);
+        SDL_SetWindowSize(this.windowPtr, val.w, val.h);
     }
 
     get size(): { w: number, h: number } {
-        const w = ref.alloc('int');
-        const h = ref.alloc('int');
-        SDL_video.SDL_GetWindowSize(this.windowPtr, w, h);
-
-        return {
-            w: w.deref(),
-            h: h.deref()
-        };
+        return SDL_GetWindowSize(this.windowPtr);
     }
 
     set minimumSize(wh: any) {
@@ -842,18 +850,12 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         const w = wh.w >= 0 ? wh.w : (wh[0] >= 0 ? wh[0] : size.w);
         const h = wh.h >= 0 ? wh.h : (wh[1] >= 0 ? wh[1] : size.h);
 
-        SDL_video.SDL_SetWindowMinimumSize(this.windowPtr, w, h);
+        SDL_SetWindowMinimumSize(this.windowPtr, w, h);
 
     }
 
     get minimumSize() {
-        const w = ref.alloc('int');
-        const h = ref.alloc('int');
-        SDL_video.SDL_GetWindowMinimumSize(this.windowPtr, w, h);
-        return utils.arraylike({
-            w: w.deref(),
-            h: h.deref()
-        });
+        return SDL_GetWindowMinimumSize(this.windowPtr);
     }
 
     set maximumSize(wh: any) {
@@ -862,27 +864,20 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         const w = wh.w >= 0 ? wh.w : (wh[0] >= 0 ? wh[0] : size.w);
         const h = wh.h >= 0 ? wh.h : (wh[1] >= 0 ? wh[1] : size.h);
 
-        SDL_video.SDL_SetWindowMaximumSize(this.windowPtr, w, h);
+        SDL_SetWindowMaximumSize(this.windowPtr, w, h);
     }
 
     get maximumSize() {
-        const w = ref.alloc('int');
-        const h = ref.alloc('int');
-
-        SDL_video.SDL_GetWindowMaximumSize(this.windowPtr, w, h);
-        return utils.arraylike({
-            w: w.deref(),
-            h: h.deref()
-        });
+        return SDL_GetWindowMaximumSize(this.windowPtr);
     }
 
     set resizable(value: boolean) {
-        SDL_video.SDL_SetWindowResizable(this.windowPtr, value);
+        SDL_SetWindowResizable(this.windowPtr, value);
     }
 
     get resizable() {
         /*tslint:disable*/
-        return !!(SDL_video.SDL_GetWindowFlags(this.windowPtr) & SDL_video.SDL_WindowFlags.SDL_WINDOW_RESIZABLE);
+        return !!(SDL_GetWindowFlags(this.windowPtr) & SDL_WindowFlags.SDL_WINDOW_RESIZABLE);
         /*tslint:enable*/
     }
 
@@ -901,67 +896,45 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         const x = xy.x >= 0 ? xy.x : (xy[0] >= 0 ? xy[0] : position.x);
         const y = xy.y >= 0 ? xy.y : (xy[1] >= 0 ? xy[1] : position.y);
 
-        SDL_video.SDL_SetWindowPosition(this.windowPtr, x, y);
+        SDL_SetWindowPosition(this.windowPtr, x, y);
     }
 
     get position() {
-        const x = ref.alloc('int');
-        const y = ref.alloc('int');
-        SDL_video.SDL_GetWindowPosition(this.windowPtr, x, y);
-
-        return utils.arraylike({
-            x: x.deref(),
-            y: y.deref()
-        });
+        return SDL_GetWindowPosition(this.windowPtr);
     }
 
-    set title(_title: string) {
-        SDL_video.SDL_SetWindowTitle(this.windowPtr, _title.toString());
+    set title(title: string) {
+        SDL_SetWindowTitle(this.windowPtr, title);
     }
 
     get title() {
-        return SDL_video.SDL_GetWindowTitle(this.windowPtr);
+        return SDL_GetWindowTitle(this.windowPtr);
     }
 
-    set border(border: any) {
-        SDL_video.SDL_SetWindowBordered(this.windowPtr, !!border);
+    set border(border: boolean) {
+        SDL_SetWindowBordered(this.windowPtr, !!border);
     }
 
     get bordersSize() {
-        const top = ref.alloc('int');
-        const left = ref.alloc('int');
-        const bottom = ref.alloc('int');
-        const right = ref.alloc('int');
-
-        SDL_video.SDL_GetWindowBordersSize(this.windowPtr, top, left, bottom, right);
-
-        return utils.arraylike({
-            top: top.deref(),
-            right: right.deref(),
-            bottom: bottom.deref(),
-            left: left.deref(),
-        });
+        return SDL_GetWindowBordersSize(this.windowPtr);
     }
 
 
-    set show(shown: any) {
-        if (shown === 'focus') {
-            SDL_video.SDL_ShowWindow(this.windowPtr);
-            this.focus();
-        } else if (!!shown) {
-            SDL_video.SDL_ShowWindow(this.windowPtr);
+    set show(show: boolean) {
+        if (show) {
+            SDL_ShowWindow(this.windowPtr);
         } else {
-            SDL_video.SDL_HideWindow(this.windowPtr);
+            SDL_HideWindow(this.windowPtr);
         }
     }
 
     get id(): number {
-        return SDL_video.SDL_GetWindowID(this.windowPtr);
+        return SDL_GetWindowID(this.windowPtr);
     }
 
     get show() {
         /*tslint:disable*/
-        return !!(SDL_video.SDL_GetWindowFlags(this.windowPtr) & SDL_video.SDL_WindowFlags.SDL_WINDOW_SHOWN);
+        return !!(SDL_GetWindowFlags(this.windowPtr) & SDL_WindowFlags.SDL_WINDOW_SHOWN);
         /*tslint:enable*/
     }
 
@@ -977,7 +950,6 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
             this.configureCanvasSize(size.w, size.h);
         }
     }
-
 
     static windowDefaults() {
         return sdlWindowDefaults();

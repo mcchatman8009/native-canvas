@@ -1,2 +1,2 @@
-export * from './node';
-export * from './node/global';
+export * from './nodejs';
+export * from './nodejs/global';

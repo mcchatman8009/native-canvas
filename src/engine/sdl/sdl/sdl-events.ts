@@ -1,5 +1,31 @@
-const SDL_events = require('../sdl-shim/SDL_events');
+import {loadLibrary} from './lib-loader';
+import {
+    char,
+    float,
+    int32,
+    Sint16,
+    Sint32,
+    string,
+    Uint16,
+    uint32,
+    Uint32,
+    Uint8,
+    voit,
+    voit_ptr,
+    voit_ptr_ptr
+} from './types';
+import {SDL_GestureID} from './sdl-gesture';
+import {SDL_FingerID, SDL_TouchID} from './sdl-touch';
+import {SDL_JoystickID} from './sdl-joystick';
+import {SDL_Keysym} from './sdl-keyboard';
+
+const FFI = require('ffi');
+const ArrayType = require('ref-array');
+const Struct = require('ref-struct');
+const Union = require('ref-union');
 const ref = require('ref');
+
+const SDL = {} as any;
 
 export enum SDL_EventType {
     SDL_FIRSTEVENT = 0,
@@ -55,8 +81,8 @@ export enum SDL_EventType {
 
 export function pollForEventsForever() {
     (function forever() {
-        const event = ref.alloc(SDL_events.SDL_Event);
-        const pending = SDL_events.SDL_PollEvent(event);
+        const event = ref.alloc(SDL_Event);
+        const pending = SDL.SDL_PollEvent(event);
 
         if (pending) {
             setImmediate(forever);
@@ -67,19 +93,322 @@ export function pollForEventsForever() {
 }
 
 export function SDL_PollEvent(sdlEvent: any) {
-    return SDL_events.SDL_PollEvent(sdlEvent);
+    return SDL.SDL_PollEvent(sdlEvent);
 }
 
 export function createEventFilterFunction(filter: (data: any, event: any) => void) {
-    return SDL_events.SDL_EventFilter.toPointer(filter);
+    return SDL_EventFilter.toPointer(filter);
 }
 
 // SDL_events.SDL_AddEventWatch(globals.filter, null);
 export function SDL_AddEventWatch(filterFunctionPtr: any, dataPtr: any) {
-    SDL_events.SDL_AddEventWatch(filterFunctionPtr, dataPtr);
+    SDL.SDL_AddEventWatch(filterFunctionPtr, dataPtr);
 }
 
 export function SDL_EventState(flag: number, value: number) {
-    return SDL_events.SDL_EventState(flag, value);
+    return SDL.SDL_EventState(flag, value);
 
 }
+
+export enum SDL_eventaction {
+    SDL_ADDEVEN = 0,
+    SDL_PEEKEVENT = 1,
+    SDL_GETEVENT = 2
+}
+
+export const SDL_CommonEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32
+});
+
+export const SDL_WindowEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    windowID: Uint32,
+    event: Uint8,
+    padding1: Uint8,
+    padding2: Uint8,
+    padding3: Uint8,
+    data1: Sint32,
+    data2: Sint32
+});
+
+export const SDL_KeyboardEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    windowID: Uint32,
+    state: Uint8,
+    repeat: Uint8,
+    padding2: Uint8,
+    padding3: Uint8,
+    keysym: SDL_Keysym
+});
+
+export const SDL_TextEditingEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    windowID: Uint32,
+    text: ArrayType(char, 32),
+    start: Sint32,
+    length: Sint32
+});
+
+export const SDL_TextInputEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    windowID: Uint32,
+    text: ArrayType(char, 32)
+});
+
+export const SDL_MouseMotionEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    windowID: Uint32,
+    which: Uint32,
+    state: Uint32,
+    x: Sint32,
+    y: Sint32,
+    xrel: Sint32,
+    yrel: Sint32
+});
+
+export const SDL_MouseButtonEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    windowID: Uint32,
+    which: Uint32,
+    button: Uint8,
+    state: Uint8,
+    clicks: Uint8,
+    padding1: Uint8,
+    x: Sint32,
+    y: Sint32
+});
+
+export const SDL_MouseWheelEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    windowID: Uint32,
+    which: Uint32,
+    x: Sint32,
+    y: Sint32,
+    direction: Uint32
+});
+
+export const SDL_JoyAxisEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: SDL_JoystickID,
+    axis: Uint8,
+    padding1: Uint8,
+    padding2: Uint8,
+    padding3: Uint8,
+    value: Sint16,
+    padding4: Uint16
+});
+
+export const SDL_JoyBallEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: SDL_JoystickID,
+    ball: Uint8,
+    padding1: Uint8,
+    padding2: Uint8,
+    padding3: Uint8,
+    xrel: Sint16,
+    yrel: Sint16
+});
+
+export const SDL_JoyHatEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: SDL_JoystickID,
+    hat: Uint8,
+    value: Uint8,
+    padding1: Uint8,
+    padding2: Uint8
+});
+
+export const SDL_JoyButtonEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: SDL_JoystickID,
+    button: Uint8,
+    state: Uint8,
+    padding1: Uint8,
+    padding2: Uint8
+});
+
+export const SDL_JoyDeviceEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: Sint32
+});
+
+export const SDL_ControllerAxisEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: SDL_JoystickID,
+    axis: Uint8,
+    padding1: Uint8,
+    padding2: Uint8,
+    padding3: Uint8,
+    value: Sint16,
+    padding4: Uint16
+});
+
+export const SDL_ControllerButtonEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: SDL_JoystickID,
+    button: Uint8,
+    state: Uint8,
+    padding1: Uint8,
+    padding2: Uint8,
+});
+
+export const SDL_ControllerDeviceEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: Sint32,
+});
+
+export const SDL_AudioDeviceEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    which: Uint32,
+    iscapture: Uint8,
+    padding1: Uint8,
+    padding2: Uint8,
+    padding3: Uint8,
+});
+
+export const SDL_TouchFingerEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    touchId: SDL_TouchID,
+    fingerId: SDL_FingerID,
+    x: float,
+    y: float,
+    dx: float,
+    dy: float,
+    pressure: float,
+});
+
+export const SDL_MultiGestureEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    touchId: SDL_TouchID,
+    dTheta: float,
+    dDist: float,
+    x: float,
+    y: float,
+    numFingers: Uint16,
+    padding: Uint16,
+});
+
+
+export const SDL_DollarGestureEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    touchId: SDL_TouchID,
+    gestureId: SDL_GestureID,
+    numFingers: Uint32,
+    error: float,
+    x: float,
+    y: float,
+});
+
+export const SDL_DropEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    file: string,
+});
+
+export const SDL_QuitEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+});
+
+export const SDL_OSEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+});
+
+
+export const SDL_UserEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    windowID: Uint32,
+    code: Sint32,
+    data1: voit_ptr,
+    data2: voit_ptr
+});
+
+export const SDL_SysWMmsg = voit;
+
+export const SDL_SysWMmsg_ptr = ref.refType(SDL_SysWMmsg);
+
+export const SDL_SysWMEvent = Struct({
+    type: Uint32,
+    timestamp: Uint32,
+    msg: SDL_SysWMmsg_ptr,
+});
+
+export const c__U_SDL_Event_FI_padding_arr = ArrayType(Uint8, 56);
+
+export const SDL_Event = Union({
+    type: Uint32,
+    common: SDL_CommonEvent,
+    window: SDL_WindowEvent,
+    key: SDL_KeyboardEvent,
+    edit: SDL_TextEditingEvent,
+    text: SDL_TextInputEvent,
+    motion: SDL_MouseMotionEvent,
+    button: SDL_MouseButtonEvent,
+    wheel: SDL_MouseWheelEvent,
+    jaxis: SDL_JoyAxisEvent,
+    jball: SDL_JoyBallEvent,
+    jhat: SDL_JoyHatEvent,
+    jbutton: SDL_JoyButtonEvent,
+    jdevice: SDL_JoyDeviceEvent,
+    caxis: SDL_ControllerAxisEvent,
+    cbutton: SDL_ControllerButtonEvent,
+    cdevice: SDL_ControllerDeviceEvent,
+    adevice: SDL_AudioDeviceEvent,
+    quit: SDL_QuitEvent,
+    user: SDL_UserEvent,
+    syswm: SDL_SysWMEvent,
+    tfinger: SDL_TouchFingerEvent,
+    mgesture: SDL_MultiGestureEvent,
+    dgesture: SDL_DollarGestureEvent,
+    drop: SDL_DropEvent,
+    padding: c__U_SDL_Event_FI_padding_arr,
+});
+
+export const SDL_Event_ptr = ref.refType(SDL_Event);
+
+export const SDL_EventFilter = FFI.Function(int32, [voit_ptr, SDL_Event_ptr]);
+
+export const SDL_EventFilter_ptr = ref.refType(SDL_EventFilter);
+
+loadLibrary({
+    SDL_PumpEvents: [voit, []],
+    SDL_PeepEvents: [int32, [SDL_Event_ptr, int32, uint32, Uint32, Uint32]],
+    SDL_HasEvent: [uint32, [Uint32]],
+    SDL_HasEvents: [uint32, [Uint32, Uint32]],
+    SDL_FlushEvent: [voit, [Uint32]],
+    SDL_FlushEvents: [voit, [Uint32, Uint32]],
+    SDL_PollEvent: [int32, [SDL_Event_ptr]],
+    SDL_WaitEvent: [int32, [SDL_Event_ptr]],
+    SDL_WaitEventTimeout: [int32, [SDL_Event_ptr, int32]],
+    SDL_PushEvent: [int32, [SDL_Event_ptr]],
+    SDL_SetEventFilter: [voit, [SDL_EventFilter, voit_ptr]],
+    SDL_GetEventFilter: [uint32, [SDL_EventFilter_ptr, voit_ptr_ptr]],
+    SDL_AddEventWatch: [voit, [SDL_EventFilter, voit_ptr]],
+    SDL_DelEventWatch: [voit, [SDL_EventFilter, voit_ptr]],
+    SDL_FilterEvents: [voit, [SDL_EventFilter, voit_ptr]],
+    SDL_EventState: [Uint8, [Uint32, int32]],
+    SDL_RegisterEvents: [Uint32, [int32]],
+}, SDL);
+

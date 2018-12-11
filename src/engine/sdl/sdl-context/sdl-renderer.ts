@@ -84,7 +84,9 @@ export class SdlRenderer {
     }
 
     static createRenderer(windowPtr: any, driver: number): SdlRenderer {
+        /*tslint:disable*/
         const renderPtr = SDL_CreateRenderer(windowPtr, driver, SDL_RendererFlags.SDL_RENDERER_ACCELERATED | SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC);
+        /*tslint:enable*/
         return new SdlRenderer(renderPtr);
     }
 
