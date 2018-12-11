@@ -6,7 +6,7 @@ import {
     cancelAnimationFrame,
     createCanvas,
     alert,
-    confirm
+    confirm, setWindowTitle
 } from '.';
 import {NativeDocument} from '../dom/document';
 
@@ -21,6 +21,7 @@ globalCtx.requestAnimationFrame = requestAnimationFrame;
 globalCtx.cancelAnimationFrame = cancelAnimationFrame;
 globalCtx.Image = Image;
 globalCtx.document = new NativeDocument(globalCtx);
+globalCtx.setWindowTitle = setWindowTitle;
 
 globalCtx.window = globalCtx;
 

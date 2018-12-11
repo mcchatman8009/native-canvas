@@ -214,7 +214,7 @@ export class NativeCanvas implements HTMLCanvasElement {
     private _nativeCtx: NativeContext;
     private _canvas: HTMLCanvasElement;
 
-    constructor(private window: NativeWindow) {
+    constructor(public window: NativeWindow) {
         this._canvas = this.window.getCanvas();
         this._nativeCtx = new NativeContext(this._canvas as HTMLCanvasElement);
     }
@@ -715,86 +715,6 @@ export class NativeCanvas implements HTMLCanvasElement {
         this._translate = value;
     }
 
-    get onfullscreenchange(): (this: Element, ev: Event) => any {
-        return this._onfullscreenchange;
-    }
-
-    set onfullscreenchange(value: (this: Element, ev: Event) => any) {
-        this._onfullscreenchange = value;
-    }
-
-    get onfullscreenerror(): (this: Element, ev: Event) => any {
-        return this._onfullscreenerror;
-    }
-
-    set onfullscreenerror(value: (this: Element, ev: Event) => any) {
-        this._onfullscreenerror = value;
-    }
-
-    get onauxclick(): (this: GlobalEventHandlers, ev: Event) => any {
-        return this._onauxclick;
-    }
-
-    set onauxclick(value: (this: GlobalEventHandlers, ev: Event) => any) {
-        this._onauxclick = value;
-    }
-
-    get oncancel(): (this: GlobalEventHandlers, ev: Event) => any {
-        return this._oncancel;
-    }
-
-    set oncancel(value: (this: GlobalEventHandlers, ev: Event) => any) {
-        this._oncancel = value;
-    }
-
-    get onclose(): (this: GlobalEventHandlers, ev: Event) => any {
-        return this._onclose;
-    }
-
-    set onclose(value: (this: GlobalEventHandlers, ev: Event) => any) {
-        this._onclose = value;
-    }
-
-    get ondragexit(): (this: GlobalEventHandlers, ev: Event) => any {
-        return this._ondragexit;
-    }
-
-    set ondragexit(value: (this: GlobalEventHandlers, ev: Event) => any) {
-        this._ondragexit = value;
-    }
-
-    get onloadend(): (this: GlobalEventHandlers, ev: ProgressEvent) => any {
-        return this._onloadend;
-    }
-
-    set onloadend(value: (this: GlobalEventHandlers, ev: ProgressEvent) => any) {
-        this._onloadend = value;
-    }
-
-    get onresize(): (this: GlobalEventHandlers, ev: UIEvent) => any {
-        return this._onresize;
-    }
-
-    set onresize(value: (this: GlobalEventHandlers, ev: UIEvent) => any) {
-        this._onresize = value;
-    }
-
-    get onsecuritypolicyviolation(): (this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any {
-        return this._onsecuritypolicyviolation;
-    }
-
-    set onsecuritypolicyviolation(value: (this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any) {
-        this._onsecuritypolicyviolation = value;
-    }
-
-    get ontoggle(): (this: GlobalEventHandlers, ev: Event) => any {
-        return this._ontoggle;
-    }
-
-    set ontoggle(value: (this: GlobalEventHandlers, ev: Event) => any) {
-        this._ontoggle = value;
-    }
-
     get inputMode(): string {
         return this._inputMode;
     }
@@ -931,52 +851,12 @@ export class NativeCanvas implements HTMLCanvasElement {
         this.window.windowImplementation().canvasWidth = value;
     }
 
-    get onabort(): ((this: HTMLElement, ev: UIEvent) => any) | null {
-        return this._onabort;
-    }
-
-    set onabort(value: ((this: HTMLElement, ev: UIEvent) => any) | null) {
-        this._onabort = value;
-    }
-
     get onactivate(): ((this: HTMLElement, ev: Event) => any) | null {
         return this._onactivate;
     }
 
     set onactivate(value: ((this: HTMLElement, ev: Event) => any) | null) {
         this._onactivate = value;
-    }
-
-    get onanimationcancel(): ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null {
-        return this._onanimationcancel;
-    }
-
-    set onanimationcancel(value: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null) {
-        this._onanimationcancel = value;
-    }
-
-    get onanimationend(): ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null {
-        return this._onanimationend;
-    }
-
-    set onanimationend(value: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null) {
-        this._onanimationend = value;
-    }
-
-    get onanimationiteration(): ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null {
-        return this._onanimationiteration;
-    }
-
-    set onanimationiteration(value: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null) {
-        this._onanimationiteration = value;
-    }
-
-    get onanimationstart(): ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null {
-        return this._onanimationstart;
-    }
-
-    set onanimationstart(value: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null) {
-        this._onanimationstart = value;
     }
 
     get onariarequest(): ((this: Element, ev: Event) => any) | null {
@@ -1027,45 +907,6 @@ export class NativeCanvas implements HTMLCanvasElement {
         this._onbeforepaste = value;
     }
 
-    get onblur(): ((this: HTMLElement, ev: FocusEvent) => any) | null {
-        return this._onblur;
-    }
-
-    set onblur(value: ((this: HTMLElement, ev: FocusEvent) => any) | null) {
-        this._onblur = value;
-    }
-
-    get oncanplay(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._oncanplay;
-    }
-
-    set oncanplay(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._oncanplay = value;
-    }
-
-    get oncanplaythrough(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._oncanplaythrough;
-    }
-
-    set oncanplaythrough(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._oncanplaythrough = value;
-    }
-
-    get onchange(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onchange;
-    }
-
-    set onchange(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onchange = value;
-    }
-
-    get onclick(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._onclick;
-    }
-
-    set onclick(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._onclick = value;
-    }
 
     get oncommand(): ((this: Element, ev: Event) => any) | null {
         return this._oncommand;
@@ -1075,292 +916,12 @@ export class NativeCanvas implements HTMLCanvasElement {
         this._oncommand = value;
     }
 
-    get oncontextmenu(): ((this: HTMLElement, ev: PointerEvent) => any) | null {
-        return this._oncontextmenu;
-    }
-
-    set oncontextmenu(value: ((this: HTMLElement, ev: PointerEvent) => any) | null) {
-        this._oncontextmenu = value;
-    }
-
-    get oncopy(): ((this: HTMLElement, ev: ClipboardEvent) => any) | null {
-        return this._oncopy;
-    }
-
-    set oncopy(value: ((this: HTMLElement, ev: ClipboardEvent) => any) | null) {
-        this._oncopy = value;
-    }
-
-    get oncuechange(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._oncuechange;
-    }
-
-    set oncuechange(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._oncuechange = value;
-    }
-
-    get oncut(): ((this: HTMLElement, ev: ClipboardEvent) => any) | null {
-        return this._oncut;
-    }
-
-    set oncut(value: ((this: HTMLElement, ev: ClipboardEvent) => any) | null) {
-        this._oncut = value;
-    }
-
-    get ondblclick(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._ondblclick;
-    }
-
-    set ondblclick(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._ondblclick = value;
-    }
-
     get ondeactivate(): ((this: HTMLElement, ev: Event) => any) | null {
         return this._ondeactivate;
     }
 
     set ondeactivate(value: ((this: HTMLElement, ev: Event) => any) | null) {
         this._ondeactivate = value;
-    }
-
-    get ondrag(): ((this: HTMLElement, ev: DragEvent) => any) | null {
-        return this._ondrag;
-    }
-
-    set ondrag(value: ((this: HTMLElement, ev: DragEvent) => any) | null) {
-        this._ondrag = value;
-    }
-
-    get ondragend(): ((this: HTMLElement, ev: DragEvent) => any) | null {
-        return this._ondragend;
-    }
-
-    set ondragend(value: ((this: HTMLElement, ev: DragEvent) => any) | null) {
-        this._ondragend = value;
-    }
-
-    get ondragenter(): ((this: HTMLElement, ev: DragEvent) => any) | null {
-        return this._ondragenter;
-    }
-
-    set ondragenter(value: ((this: HTMLElement, ev: DragEvent) => any) | null) {
-        this._ondragenter = value;
-    }
-
-    get ondragleave(): ((this: HTMLElement, ev: DragEvent) => any) | null {
-        return this._ondragleave;
-    }
-
-    set ondragleave(value: ((this: HTMLElement, ev: DragEvent) => any) | null) {
-        this._ondragleave = value;
-    }
-
-    get ondragover(): ((this: HTMLElement, ev: DragEvent) => any) | null {
-        return this._ondragover;
-    }
-
-    set ondragover(value: ((this: HTMLElement, ev: DragEvent) => any) | null) {
-        this._ondragover = value;
-    }
-
-    get ondragstart(): ((this: HTMLElement, ev: DragEvent) => any) | null {
-        return this._ondragstart;
-    }
-
-    set ondragstart(value: ((this: HTMLElement, ev: DragEvent) => any) | null) {
-        this._ondragstart = value;
-    }
-
-    get ondrop(): ((this: HTMLElement, ev: DragEvent) => any) | null {
-        return this._ondrop;
-    }
-
-    set ondrop(value: ((this: HTMLElement, ev: DragEvent) => any) | null) {
-        this._ondrop = value;
-    }
-
-    get ondurationchange(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._ondurationchange;
-    }
-
-    set ondurationchange(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._ondurationchange = value;
-    }
-
-    get onemptied(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onemptied;
-    }
-
-    set onemptied(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onemptied = value;
-    }
-
-    get onended(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onended;
-    }
-
-    set onended(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onended = value;
-    }
-
-    get onerror(): ((this: HTMLElement, ev: ErrorEvent) => any) | null {
-        return this._onerror;
-    }
-
-    set onerror(value: ((this: HTMLElement, ev: ErrorEvent) => any) | null) {
-        this._onerror = value;
-    }
-
-    get onfocus(): ((this: HTMLElement, ev: FocusEvent) => any) | null {
-        return this._onfocus;
-    }
-
-    set onfocus(value: ((this: HTMLElement, ev: FocusEvent) => any) | null) {
-        this._onfocus = value;
-    }
-
-    get ongotpointercapture(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._ongotpointercapture;
-    }
-
-    set ongotpointercapture(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._ongotpointercapture = value;
-    }
-
-    get oninput(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._oninput;
-    }
-
-    set oninput(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._oninput = value;
-    }
-
-    get oninvalid(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._oninvalid;
-    }
-
-    set oninvalid(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._oninvalid = value;
-    }
-
-    get onkeydown(): ((this: HTMLElement, ev: KeyboardEvent) => any) | null {
-        return this._onkeydown;
-    }
-
-    set onkeydown(value: ((this: HTMLElement, ev: KeyboardEvent) => any) | null) {
-        this._onkeydown = value;
-    }
-
-    get onkeypress(): ((this: HTMLElement, ev: KeyboardEvent) => any) | null {
-        return this._onkeypress;
-    }
-
-    set onkeypress(value: ((this: HTMLElement, ev: KeyboardEvent) => any) | null) {
-        this._onkeypress = value;
-    }
-
-    get onkeyup(): ((this: HTMLElement, ev: KeyboardEvent) => any) | null {
-        return this._onkeyup;
-    }
-
-    set onkeyup(value: ((this: HTMLElement, ev: KeyboardEvent) => any) | null) {
-        this._onkeyup = value;
-    }
-
-    get onload(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onload;
-    }
-
-    set onload(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onload = value;
-    }
-
-    get onloadeddata(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onloadeddata;
-    }
-
-    set onloadeddata(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onloadeddata = value;
-    }
-
-    get onloadedmetadata(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onloadedmetadata;
-    }
-
-    set onloadedmetadata(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onloadedmetadata = value;
-    }
-
-    get onloadstart(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onloadstart;
-    }
-
-    set onloadstart(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onloadstart = value;
-    }
-
-    get onlostpointercapture(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onlostpointercapture;
-    }
-
-    set onlostpointercapture(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onlostpointercapture = value;
-    }
-
-    get onmousedown(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._onmousedown;
-    }
-
-    set onmousedown(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._onmousedown = value;
-    }
-
-    get onmouseenter(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._onmouseenter;
-    }
-
-    set onmouseenter(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._onmouseenter = value;
-    }
-
-    get onmouseleave(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._onmouseleave;
-    }
-
-    set onmouseleave(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._onmouseleave = value;
-    }
-
-    get onmousemove(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._onmousemove;
-    }
-
-    set onmousemove(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._onmousemove = value;
-    }
-
-    get onmouseout(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._onmouseout;
-    }
-
-    set onmouseout(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._onmouseout = value;
-    }
-
-    get onmouseover(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._onmouseover;
-    }
-
-    set onmouseover(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._onmouseover = value;
-    }
-
-    get onmouseup(): ((this: HTMLElement, ev: MouseEvent) => any) | null {
-        return this._onmouseup;
-    }
-
-    set onmouseup(value: ((this: HTMLElement, ev: MouseEvent) => any) | null) {
-        this._onmouseup = value;
     }
 
     get onmousewheel(): ((this: HTMLElement, ev: WheelEvent) => any) | null {
@@ -1523,158 +1084,6 @@ export class NativeCanvas implements HTMLCanvasElement {
         this._onmspointerup = value;
     }
 
-    get onpaste(): ((this: HTMLElement, ev: ClipboardEvent) => any) | null {
-        return this._onpaste;
-    }
-
-    set onpaste(value: ((this: HTMLElement, ev: ClipboardEvent) => any) | null) {
-        this._onpaste = value;
-    }
-
-    get onpause(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onpause;
-    }
-
-    set onpause(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onpause = value;
-    }
-
-    get onplay(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onplay;
-    }
-
-    set onplay(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onplay = value;
-    }
-
-    get onplaying(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onplaying;
-    }
-
-    set onplaying(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onplaying = value;
-    }
-
-    get onpointercancel(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onpointercancel;
-    }
-
-    set onpointercancel(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onpointercancel = value;
-    }
-
-    get onpointerdown(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onpointerdown;
-    }
-
-    set onpointerdown(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onpointerdown = value;
-    }
-
-    get onpointerenter(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onpointerenter;
-    }
-
-    set onpointerenter(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onpointerenter = value;
-    }
-
-    get onpointerleave(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onpointerleave;
-    }
-
-    set onpointerleave(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onpointerleave = value;
-    }
-
-    get onpointermove(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onpointermove;
-    }
-
-    set onpointermove(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onpointermove = value;
-    }
-
-    get onpointerout(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onpointerout;
-    }
-
-    set onpointerout(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onpointerout = value;
-    }
-
-    get onpointerover(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onpointerover;
-    }
-
-    set onpointerover(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onpointerover = value;
-    }
-
-    get onpointerup(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
-        return this._onpointerup;
-    }
-
-    set onpointerup(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
-        this._onpointerup = value;
-    }
-
-    get onprogress(): ((this: HTMLElement, ev: ProgressEvent) => any) | null {
-        return this._onprogress;
-    }
-
-    set onprogress(value: ((this: HTMLElement, ev: ProgressEvent) => any) | null) {
-        this._onprogress = value;
-    }
-
-    get onratechange(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onratechange;
-    }
-
-    set onratechange(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onratechange = value;
-    }
-
-    get onreset(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onreset;
-    }
-
-    set onreset(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onreset = value;
-    }
-
-    get onscroll(): ((this: HTMLElement, ev: UIEvent) => any) | null {
-        return this._onscroll;
-    }
-
-    set onscroll(value: ((this: HTMLElement, ev: UIEvent) => any) | null) {
-        this._onscroll = value;
-    }
-
-    get onseeked(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onseeked;
-    }
-
-    set onseeked(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onseeked = value;
-    }
-
-    get onseeking(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onseeking;
-    }
-
-    set onseeking(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onseeking = value;
-    }
-
-    get onselect(): ((this: HTMLElement, ev: UIEvent) => any) | null {
-        return this._onselect;
-    }
-
-    set onselect(value: ((this: HTMLElement, ev: UIEvent) => any) | null) {
-        this._onselect = value;
-    }
-
     get onselectstart(): ((this: HTMLElement, ev: Event) => any) | null {
         return this._onselectstart;
     }
@@ -1683,117 +1092,6 @@ export class NativeCanvas implements HTMLCanvasElement {
         this._onselectstart = value;
     }
 
-    get onstalled(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onstalled;
-    }
-
-    set onstalled(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onstalled = value;
-    }
-
-    get onsubmit(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onsubmit;
-    }
-
-    set onsubmit(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onsubmit = value;
-    }
-
-    get onsuspend(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onsuspend;
-    }
-
-    set onsuspend(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onsuspend = value;
-    }
-
-    get ontimeupdate(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._ontimeupdate;
-    }
-
-    set ontimeupdate(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._ontimeupdate = value;
-    }
-
-    get ontouchcancel(): ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null {
-        return this._ontouchcancel;
-    }
-
-    set ontouchcancel(value: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null) {
-        this._ontouchcancel = value;
-    }
-
-    get ontouchend(): ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null {
-        return this._ontouchend;
-    }
-
-    set ontouchend(value: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null) {
-        this._ontouchend = value;
-    }
-
-    get ontouchmove(): ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null {
-        return this._ontouchmove;
-    }
-
-    set ontouchmove(value: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null) {
-        this._ontouchmove = value;
-    }
-
-    get ontouchstart(): ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null {
-        return this._ontouchstart;
-    }
-
-    set ontouchstart(value: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null) {
-        this._ontouchstart = value;
-    }
-
-    get ontransitioncancel(): ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null {
-        return this._ontransitioncancel;
-    }
-
-    set ontransitioncancel(value: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null) {
-        this._ontransitioncancel = value;
-    }
-
-    get ontransitionend(): ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null {
-        return this._ontransitionend;
-    }
-
-    set ontransitionend(value: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null) {
-        this._ontransitionend = value;
-    }
-
-    get ontransitionrun(): ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null {
-        return this._ontransitionrun;
-    }
-
-    set ontransitionrun(value: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null) {
-        this._ontransitionrun = value;
-    }
-
-    get ontransitionstart(): ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null {
-        return this._ontransitionstart;
-    }
-
-    set ontransitionstart(value: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null) {
-        this._ontransitionstart = value;
-    }
-
-    get onvolumechange(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onvolumechange;
-    }
-
-    set onvolumechange(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onvolumechange = value;
-    }
-
-    get onwaiting(): ((this: HTMLElement, ev: Event) => any) | null {
-        return this._onwaiting;
-    }
-
-    set onwaiting(value: ((this: HTMLElement, ev: Event) => any) | null) {
-        this._onwaiting = value;
-    }
 
     get onwebkitfullscreenchange(): ((this: Element, ev: Event) => any) | null {
         return this._onwebkitfullscreenchange;
@@ -1809,14 +1107,6 @@ export class NativeCanvas implements HTMLCanvasElement {
 
     set onwebkitfullscreenerror(value: ((this: Element, ev: Event) => any) | null) {
         this._onwebkitfullscreenerror = value;
-    }
-
-    get onwheel(): ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null {
-        return this._onwheel;
-    }
-
-    set onwheel(value: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null) {
-        this._onwheel = value;
     }
 
     get outerHTML(): string {
@@ -2136,9 +1426,11 @@ export class NativeCanvas implements HTMLCanvasElement {
     }
 
     webkitRequestFullScreen(): void {
+        this.requestFullscreen();
     }
 
     webkitRequestFullscreen(): void {
+        this.requestFullscreen();
     }
 
     addEventListener(type: any, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
@@ -2223,6 +1515,738 @@ export class NativeCanvas implements HTMLCanvasElement {
 
     replaceWith(...nodes: (string | Node)[]): void {
         throw new Error('Method not implemented.');
+    }
+
+    get onabort(): ((this: GlobalEventHandlers, ev: UIEvent) => any) | null {
+        return this.window.onabort;
+    }
+
+    set onabort(value: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null) {
+        this.window.onabort = value;
+    }
+
+    get onanimationcancel(): ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null {
+        return this.window.onanimationcancel;
+    }
+
+    set onanimationcancel(value: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null) {
+        this.window.onanimationcancel = value;
+    }
+
+    get onanimationend(): ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null {
+        return this.window.onanimationend;
+    }
+
+    set onanimationend(value: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null) {
+        this.window.onanimationend = value;
+    }
+
+    get onanimationiteration(): ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null {
+        return this.window.onanimationiteration;
+    }
+
+    set onanimationiteration(value: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null) {
+        this.window.onanimationiteration = value;
+    }
+
+    get onanimationstart(): ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null {
+        return this.window.onanimationstart;
+    }
+
+    set onanimationstart(value: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null) {
+        this.window.onanimationstart = value;
+    }
+
+    get onauxclick(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onauxclick;
+    }
+
+    set onauxclick(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onauxclick = value;
+    }
+
+    get onblur(): ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null {
+        return this.window.onblur;
+    }
+
+    set onblur(value: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null) {
+        this.window.onblur = value;
+    }
+
+    get oncancel(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.oncancel;
+    }
+
+    set oncancel(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.oncancel = value;
+    }
+
+    get oncanplay(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.oncanplay;
+    }
+
+    set oncanplay(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.oncanplay = value;
+    }
+
+    get oncanplaythrough(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.oncanplaythrough;
+    }
+
+    set oncanplaythrough(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.oncanplaythrough = value;
+    }
+
+    get onchange(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onchange;
+    }
+
+    set onchange(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onchange = value;
+    }
+
+    get onclick(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.onclick;
+    }
+
+    set onclick(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.onclick = value;
+    }
+
+    get onclose(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onclose;
+    }
+
+    set onclose(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onclose = value;
+    }
+
+    get oncontextmenu(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.oncontextmenu;
+    }
+
+    set oncontextmenu(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.oncontextmenu = value;
+    }
+
+    get oncopy(): any {
+        return null;
+    }
+
+    set oncopy(value: any) {
+        // this.window.oncopy = value;
+    }
+
+    get oncuechange(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.oncuechange;
+    }
+
+    set oncuechange(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.oncuechange = value;
+    }
+
+    get oncut(): any {
+        // return this.window.oncut;
+        return null;
+    }
+
+    set oncut(value: any) {
+        // this.window.oncut = value;
+    }
+
+    get ondblclick(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.ondblclick;
+    }
+
+    set ondblclick(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.ondblclick = value;
+    }
+
+    get ondrag(): ((this: GlobalEventHandlers, ev: DragEvent) => any) | null {
+        return this.window.ondrag;
+    }
+
+    set ondrag(value: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null) {
+        this.window.ondrag = value;
+    }
+
+    get ondragend(): ((this: GlobalEventHandlers, ev: DragEvent) => any) | null {
+        return this.window.ondragend;
+    }
+
+    set ondragend(value: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null) {
+        this.window.ondragend = value;
+    }
+
+    get ondragenter(): ((this: GlobalEventHandlers, ev: DragEvent) => any) | null {
+        return this.window.ondragenter;
+    }
+
+    set ondragenter(value: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null) {
+        this.window.ondragenter = value;
+    }
+
+    get ondragexit(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.ondragexit;
+    }
+
+    set ondragexit(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.ondragexit = value;
+    }
+
+    get ondragleave(): ((this: GlobalEventHandlers, ev: DragEvent) => any) | null {
+        return this.window.ondragleave;
+    }
+
+    set ondragleave(value: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null) {
+        this.window.ondragleave = value;
+    }
+
+    get ondragover(): ((this: GlobalEventHandlers, ev: DragEvent) => any) | null {
+        return this.window.ondragover;
+    }
+
+    set ondragover(value: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null) {
+        this.window.ondragover = value;
+    }
+
+    get ondragstart(): ((this: GlobalEventHandlers, ev: DragEvent) => any) | null {
+        return this.window.ondragstart;
+    }
+
+    set ondragstart(value: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null) {
+        this.window.ondragstart = value;
+    }
+
+    get ondrop(): ((this: GlobalEventHandlers, ev: DragEvent) => any) | null {
+        return this.window.ondrop;
+    }
+
+    set ondrop(value: ((this: GlobalEventHandlers, ev: DragEvent) => any) | null) {
+        this.window.ondrop = value;
+    }
+
+    get ondurationchange(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.ondurationchange;
+    }
+
+    set ondurationchange(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.ondurationchange = value;
+    }
+
+    get onemptied(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onemptied;
+    }
+
+    set onemptied(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onemptied = value;
+    }
+
+    get onended(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onended;
+    }
+
+    set onended(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onended = value;
+    }
+
+    get onerror(): ErrorEventHandler {
+        return this.window.onerror;
+    }
+
+    set onerror(value: ErrorEventHandler) {
+        this.window.onerror = value;
+    }
+
+    get onfocus(): ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null {
+        return this.window.onfocus;
+    }
+
+    set onfocus(value: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null) {
+        this.window.onfocus = value;
+    }
+
+    get onfullscreenchange(): any {
+        // return this.window.onfullscreenchange;
+        return null;
+    }
+
+    set onfullscreenchange(value: any) {
+        // this.window.onfullscreenchange = value;
+    }
+
+    get onfullscreenerror(): any | null {
+        // return this.window.onfullscreenerror;
+        return null;
+    }
+
+    set onfullscreenerror(value: any) {
+        // this.window.onfullscreenerror = value;
+    }
+
+    get ongotpointercapture(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.ongotpointercapture;
+    }
+
+    set ongotpointercapture(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.ongotpointercapture = value;
+    }
+
+    get oninput(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.oninput;
+    }
+
+    set oninput(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.oninput = value;
+    }
+
+    get oninvalid(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.oninvalid;
+    }
+
+    set oninvalid(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.oninvalid = value;
+    }
+
+    get onkeydown(): ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null {
+        return this.window.onkeydown;
+    }
+
+    set onkeydown(value: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null) {
+        this.window.onkeydown = value;
+    }
+
+    get onkeypress(): ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null {
+        return this.window.onkeypress;
+    }
+
+    set onkeypress(value: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null) {
+        this.window.onkeypress = value;
+    }
+
+    get onkeyup(): ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null {
+        return this.window.onkeyup;
+    }
+
+    set onkeyup(value: ((this: GlobalEventHandlers, ev: KeyboardEvent) => any) | null) {
+        this.window.onkeyup = value;
+    }
+
+    get onload(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onload;
+    }
+
+    set onload(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onload = value;
+    }
+
+    get onloadeddata(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onloadeddata;
+    }
+
+    set onloadeddata(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onloadeddata = value;
+    }
+
+    get onloadedmetadata(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onloadedmetadata;
+    }
+
+    set onloadedmetadata(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onloadedmetadata = value;
+    }
+
+    get onloadend(): ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null {
+        return this.window.onloadend;
+    }
+
+    set onloadend(value: ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null) {
+        this.window.onloadend = value;
+    }
+
+    get onloadstart(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onloadstart;
+    }
+
+    set onloadstart(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onloadstart = value;
+    }
+
+    get onlostpointercapture(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onlostpointercapture;
+    }
+
+    set onlostpointercapture(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onlostpointercapture = value;
+    }
+
+    get onmousedown(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.onmousedown;
+    }
+
+    set onmousedown(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.onmousedown = value;
+    }
+
+    get onmouseenter(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.onmouseenter;
+    }
+
+    set onmouseenter(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.onmouseenter = value;
+    }
+
+    get onmouseleave(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.onmouseleave;
+    }
+
+    set onmouseleave(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.onmouseleave = value;
+    }
+
+    get onmousemove(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.onmousemove;
+    }
+
+    set onmousemove(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.onmousemove = value;
+    }
+
+    get onmouseout(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.onmouseout;
+    }
+
+    set onmouseout(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.onmouseout = value;
+    }
+
+    get onmouseover(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.onmouseover;
+    }
+
+    set onmouseover(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.onmouseover = value;
+    }
+
+    get onmouseup(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
+        return this.window.onmouseup;
+    }
+
+    set onmouseup(value: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null) {
+        this.window.onmouseup = value;
+    }
+
+    get onpaste(): ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null {
+        return null;
+    }
+
+    set onpaste(value: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null) {
+        // this.window.onpaste = value;
+    }
+
+    get onpause(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onpause;
+    }
+
+    set onpause(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onpause = value;
+    }
+
+    get onplay(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onplay;
+    }
+
+    set onplay(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onplay = value;
+    }
+
+    get onplaying(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onplaying;
+    }
+
+    set onplaying(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onplaying = value;
+    }
+
+    get onpointercancel(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onpointercancel;
+    }
+
+    set onpointercancel(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onpointercancel = value;
+    }
+
+    get onpointerdown(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onpointerdown;
+    }
+
+    set onpointerdown(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onpointerdown = value;
+    }
+
+    get onpointerenter(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onpointerenter;
+    }
+
+    set onpointerenter(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onpointerenter = value;
+    }
+
+    get onpointerleave(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onpointerleave;
+    }
+
+    set onpointerleave(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onpointerleave = value;
+    }
+
+    get onpointermove(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onpointermove;
+    }
+
+    set onpointermove(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onpointermove = value;
+    }
+
+    get onpointerout(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onpointerout;
+    }
+
+    set onpointerout(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onpointerout = value;
+    }
+
+    get onpointerover(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onpointerover;
+    }
+
+    set onpointerover(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onpointerover = value;
+    }
+
+    get onpointerup(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
+        return this.window.onpointerup;
+    }
+
+    set onpointerup(value: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null) {
+        this.window.onpointerup = value;
+    }
+
+    get onprogress(): ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null {
+        return this.window.onprogress;
+    }
+
+    set onprogress(value: ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null) {
+        this.window.onprogress = value;
+    }
+
+    get onratechange(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onratechange;
+    }
+
+    set onratechange(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onratechange = value;
+    }
+
+    get onreadystatechange(): ((this: Document, ev: ProgressEvent) => any) | null {
+        return null;
+    }
+
+    set onreadystatechange(value: ((this: Document, ev: ProgressEvent) => any) | null) {
+        // this.window.onreadystatechange = value;
+    }
+
+    get onreset(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onreset;
+    }
+
+    set onreset(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onreset = value;
+    }
+
+    get onresize(): ((this: GlobalEventHandlers, ev: UIEvent) => any) | null {
+        return this.window.onresize;
+    }
+
+    set onresize(value: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null) {
+        this.window.onresize = value;
+    }
+
+    get onscroll(): ((this: GlobalEventHandlers, ev: UIEvent) => any) | null {
+        return this.window.onscroll;
+    }
+
+    set onscroll(value: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null) {
+        this.window.onscroll = value;
+    }
+
+    get onsecuritypolicyviolation(): ((this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any) | null {
+        return this.window.onsecuritypolicyviolation;
+    }
+
+    set onsecuritypolicyviolation(value: ((this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any) | null) {
+        this.window.onsecuritypolicyviolation = value;
+    }
+
+    get onseeked(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onseeked;
+    }
+
+    set onseeked(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onseeked = value;
+    }
+
+    get onseeking(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onseeking;
+    }
+
+    set onseeking(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onseeking = value;
+    }
+
+    get onselect(): ((this: GlobalEventHandlers, ev: UIEvent) => any) | null {
+        return this.window.onselect;
+    }
+
+    set onselect(value: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null) {
+        this.window.onselect = value;
+    }
+
+    get onstalled(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onstalled;
+    }
+
+    set onstalled(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onstalled = value;
+    }
+
+    get onsubmit(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onsubmit;
+    }
+
+    set onsubmit(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onsubmit = value;
+    }
+
+    get onsuspend(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onsuspend;
+    }
+
+    set onsuspend(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onsuspend = value;
+    }
+
+    get ontimeupdate(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.ontimeupdate;
+    }
+
+    set ontimeupdate(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.ontimeupdate = value;
+    }
+
+    get ontoggle(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.ontoggle;
+    }
+
+    set ontoggle(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.ontoggle = value;
+    }
+
+    get ontouchcancel(): ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null {
+        return this.window.ontouchcancel;
+    }
+
+    set ontouchcancel(value: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null) {
+        this.window.ontouchcancel = value;
+    }
+
+    get ontouchend(): ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null {
+        return this.window.ontouchend;
+    }
+
+    set ontouchend(value: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null) {
+        this.window.ontouchend = value;
+    }
+
+    get ontouchmove(): ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null {
+        return this.window.ontouchmove;
+    }
+
+    set ontouchmove(value: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null) {
+        this.window.ontouchmove = value;
+    }
+
+    get ontouchstart(): ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null {
+        return this.window.ontouchstart;
+    }
+
+    set ontouchstart(value: ((this: GlobalEventHandlers, ev: TouchEvent) => any) | null) {
+        this.window.ontouchstart = value;
+    }
+
+    get ontransitioncancel(): ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null {
+        return this.window.ontransitioncancel;
+    }
+
+    set ontransitioncancel(value: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null) {
+        this.window.ontransitioncancel = value;
+    }
+
+    get ontransitionend(): ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null {
+        return this.window.ontransitionend;
+    }
+
+    set ontransitionend(value: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null) {
+        this.window.ontransitionend = value;
+    }
+
+    get ontransitionrun(): ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null {
+        return this.window.ontransitionrun;
+    }
+
+    set ontransitionrun(value: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null) {
+        this.window.ontransitionrun = value;
+    }
+
+    get ontransitionstart(): ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null {
+        return this.window.ontransitionstart;
+    }
+
+    set ontransitionstart(value: ((this: GlobalEventHandlers, ev: TransitionEvent) => any) | null) {
+        this.window.ontransitionstart = value;
+    }
+
+    get onvisibilitychange(): ((this: Document, ev: Event) => any) | null {
+        return null;
+        // return this.window.onvisibilitychange;
+    }
+
+    set onvisibilitychange(value: ((this: Document, ev: Event) => any) | null) {
+        // this.window.onvisibilitychange = value;
+    }
+
+    get onvolumechange(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onvolumechange;
+    }
+
+    set onvolumechange(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onvolumechange = value;
+    }
+
+    get onwaiting(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
+        return this.window.onwaiting;
+    }
+
+    set onwaiting(value: ((this: GlobalEventHandlers, ev: Event) => any) | null) {
+        this.window.onwaiting = value;
+    }
+
+    get onwheel(): ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null {
+        return this.window.onwheel;
+    }
+
+    set onwheel(value: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null) {
+        this.window.onwheel = value;
     }
 }
 

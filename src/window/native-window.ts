@@ -3,6 +3,8 @@ export interface NativeWindow extends Window {
 
     canvasY: number;
 
+    title: string;
+
     getCanvas(): HTMLCanvasElement;
 
     renderFrame(ms: number): void;

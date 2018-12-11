@@ -10,6 +10,10 @@ const ENGINE_NAME = 'sdl';
 
 export * from '../image/image';
 
+export function setWindowTitle(canvas: HTMLCanvasElement, title: string) {
+    (canvas as any).window.title = title;
+}
+
 export function createDefaults(): WindowOptions {
     return engine.defaultWindowOptions(ENGINE_NAME);
 }

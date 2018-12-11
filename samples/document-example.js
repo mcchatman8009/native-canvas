@@ -12,3 +12,5 @@ ctx.arc(40, 40, 40, 0, 2 * Math.PI);
 ctx.closePath();
 ctx.stroke();
 
+document.title = 'Create Canvas with Document';
+
