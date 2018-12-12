@@ -1,8 +1,9 @@
-const nativeCanvas = require('../dist');
-const ok = nativeCanvas.confirm("Are you ok?");
+require('../dist');
+
+const ok = confirm("Are you ok?");
 
 if (ok) {
-    nativeCanvas.alert("That's great to hear!");
+    alert("That's great to hear!");
 }
 process.exit(0);
 

@@ -1,6 +1,6 @@
 require('../dist');
 
-var canvas = document.getElementById('canvas');
+var canvas = document.getElementById('internalCanvas');
 var ctx = canvas.getContext('2d');
 var raf;
 

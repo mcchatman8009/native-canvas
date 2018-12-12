@@ -1,6 +1,6 @@
 import {Image} from '../image/image';
 
-export class NativeContext implements CanvasRenderingContext2D {
+export class SdlContext implements CanvasRenderingContext2D {
     private _mozImageSmoothingEnabled: boolean;
     private _msFillRule: CanvasFillRule;
     private _oImageSmoothingEnabled: boolean;
@@ -34,7 +34,7 @@ export class NativeContext implements CanvasRenderingContext2D {
 
         // this.fillStyle = '#FFFFFF';
         // this.strokeStyle = '#000000';
-        // this.fillRect(0, 0, canvas.width, canvas.height);
+        // this.fillRect(0, 0, internalCanvas.width, internalCanvas.height);
         //
         // this.fillStyle = '#000000';
         // this.strokeStyle = '#000000';

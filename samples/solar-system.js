@@ -23,7 +23,7 @@ function draw() {
     if (counter === 0) {
 
         ctx.globalCompositeOperation = 'destination-over';
-        ctx.clearRect(0, 0, 300, 300); // clear canvas
+        ctx.clearRect(0, 0, 300, 300); // clear internalCanvas
 
         ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
         ctx.strokeStyle = 'rgba(0, 153, 255, 0.4)';

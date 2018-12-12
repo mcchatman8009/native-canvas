@@ -29,31 +29,31 @@ img.onload = function () {
     imgH = img.height * scale;
 
     if (imgW > CanvasXSize) {
-        // image larger than canvas
+        // image larger than internalCanvas
         x = CanvasXSize - imgW;
     }
     if (imgW > CanvasXSize) {
-        // image width larger than canvas
+        // image width larger than internalCanvas
         clearX = imgW;
     } else {
         clearX = CanvasXSize;
     }
     if (imgH > CanvasYSize) {
-        // image height larger than canvas
+        // image height larger than internalCanvas
         clearY = imgH;
     } else {
         clearY = CanvasYSize;
     }
 
-    // get canvas context
-    ctx = document.getElementById('canvas').getContext('2d');
+    // get internalCanvas context
+    ctx = document.getElementById('internalCanvas').getContext('2d');
 
     // set refresh rate
     return setInterval(draw, speed);
 };
 
 function draw() {
-    ctx.clearRect(0, 0, clearX, clearY); // clear the canvas
+    ctx.clearRect(0, 0, clearX, clearY); // clear the internalCanvas
 
     // if image is <= Canvas Size
     if (imgW <= CanvasXSize) {

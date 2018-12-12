@@ -1,27 +1,42 @@
 import {
-    createDefaults,
     createWindow,
     requestAnimationFrame,
     Image,
     cancelAnimationFrame,
-    createCanvas,
     alert,
-    confirm, setWindowTitle
+    confirm, SdlCanvas, SdlContext
 } from '.';
-import {NativeDocument} from '../dom/document';
 
-export const globalCtx = (global as any);
+import {NativeWindow} from '../window/native-window';
 
-globalCtx.createDefaults = createDefaults;
-globalCtx.createCanvas = createCanvas;
+const globalCtx = (global as any);
+export const window = createWindow();
+
+globalCtx.window = window;
+globalCtx.document = window.document;
+globalCtx.newCanvas = newCanvas;
+globalCtx.createCanvas = newCanvas;
+globalCtx.setWindowTitle = setWindowTitle;
 globalCtx.createWindow = createWindow;
 globalCtx.confirm = confirm;
 globalCtx.alert = alert;
 globalCtx.requestAnimationFrame = requestAnimationFrame;
 globalCtx.cancelAnimationFrame = cancelAnimationFrame;
 globalCtx.Image = Image;
-globalCtx.document = new NativeDocument(globalCtx);
-globalCtx.setWindowTitle = setWindowTitle;
+globalCtx.HTMLCanvasElement = SdlCanvas;
+globalCtx.CanvasRenderingContext2D = SdlContext;
 
-globalCtx.window = globalCtx;
 
+function setWindowTitle(title: string, windowArg?: NativeWindow) {
+    if (windowArg) {
+        windowArg.title = title;
+    } else {
+        window.title = title;
+    }
+}
+
+function newCanvas() {
+    const args = Array.from(arguments);
+    this._ctx.putImageData.apply(this._ctx, args);
+    return window.newCanvas();
+}

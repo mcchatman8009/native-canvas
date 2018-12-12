@@ -1,7 +1,8 @@
-import {NativeContext} from './native-context';
-import {NativeWindow} from '../window/native-window';
+import {SdlContext} from './sdl-context';
+import {NativeWindow} from '../../../window/native-window';
+import {SdlWindow} from '../sdl-window/sdl-window';
 
-export class NativeCanvas implements HTMLCanvasElement {
+export class SdlCanvas implements HTMLCanvasElement {
     private _accessKeyLabel: string;
     private _autocapitalize: string;
     private _translate: boolean;
@@ -211,12 +212,16 @@ export class NativeCanvas implements HTMLCanvasElement {
     private _tagName: string;
     private _textContent: string | null;
     private _title: string;
-    private _nativeCtx: NativeContext;
+    private _nativeCtx: SdlContext;
     private _canvas: HTMLCanvasElement;
 
     constructor(public window: NativeWindow) {
-        this._canvas = this.window.getCanvas();
-        this._nativeCtx = new NativeContext(this._canvas as HTMLCanvasElement);
+        const sdlWindow = window as SdlWindow;
+
+        this._canvas = sdlWindow.internalCanvas;
+        this._nativeCtx = new SdlContext(this._canvas as HTMLCanvasElement);
+
+        sdlWindow.canvas = this;
     }
 
     get firstChild(): Node | any {
@@ -1181,11 +1186,11 @@ export class NativeCanvas implements HTMLCanvasElement {
         this._title = value;
     }
 
-    get nativeCtx(): NativeContext {
+    get nativeCtx(): SdlContext {
         return this._nativeCtx;
     }
 
-    set nativeCtx(value: NativeContext) {
+    set nativeCtx(value: SdlContext) {
         this._nativeCtx = value;
     }
 

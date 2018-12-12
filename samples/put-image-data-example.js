@@ -27,7 +27,7 @@ function putImageData(ctx, imageData, dx, dy,
     }
 }
 
-// Draw content onto the canvas
+// Draw content onto the internalCanvas
 ctx.fillRect(0, 0, 100, 100);
 // Create an ImageData object from it
 const imagedata = ctx.getImageData(0, 0, 100, 100);

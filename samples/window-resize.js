@@ -2,7 +2,7 @@ require('../dist');
 
 const canvas = createCanvas("Resize");
 const ctx = canvas.getContext("2d");
-// canvas.height = 150;
+// internalCanvas.height = 150;
 
 const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

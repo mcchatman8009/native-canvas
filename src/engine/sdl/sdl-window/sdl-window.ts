@@ -36,48 +36,54 @@ import {
 } from '../sdl';
 import {getCurrentMouseEvent} from '../event/mouse-event';
 import {getCurrentKeyEvent} from '../event/key-event';
+import {SdlDocument} from '../document/sdl-document';
+import {SdlCanvas} from '../canvas/sdl-canvas';
 
+const NodeCanvasImage = require('canvas').Image;
 const createInternalCanvas = require('canvas').createCanvas;
+const {loadImage} = require('canvas');
 
 export class SdlWindow extends EventEmitter implements NativeWindow {
 
     private _windowPtr: any;
-    private _hasMouseEntered = false;
+    private _hasMouseEnteredWindow = false;
     private _lastMouseEvent: MouseEvent;
     private _lastKeyboardEvent: KeyboardEvent;
     private _context: SdlContext2d;
+    private _internalCanvas: HTMLCanvasElement;
     private _canvas: HTMLCanvasElement;
+
     private _Blob: { prototype: Blob; new(blobParts?: any[], options?: BlobPropertyBag): Blob };
     private _URL: { prototype: URL; new(url: string, base?: (string | URL)): URL; createObjectURL(object: any): string; revokeObjectURL(url: string): void };
     private _URLSearchParams: { prototype: URLSearchParams; new(init?: (string[][] | Record<string, string> | string | URLSearchParams)): URLSearchParams };
-    readonly applicationCache: ApplicationCache;
-    readonly caches: CacheStorage;
-    readonly clientInformation: Navigator;
-    readonly closed: boolean;
-    readonly console: Console;
-    readonly crypto: Crypto;
+    private readonly _applicationCache: ApplicationCache;
+    private readonly _caches: CacheStorage;
+    private readonly _clientInformation: Navigator;
+    private readonly _closed: boolean;
+    private readonly _console: Console;
+    private readonly _crypto: Crypto;
     private _customElements: CustomElementRegistry;
     private _defaultStatus: string;
-    readonly devicePixelRatio: number;
-    readonly doNotTrack: string;
-    readonly document: Document;
-    readonly event: Event | undefined;
-    readonly external: External;
-    readonly frameElement: Element;
-    readonly frames: Window;
-    readonly history: History;
-    readonly indexedDB: IDBFactory;
-    readonly innerHeight: number;
-    readonly innerWidth: number;
-    readonly isSecureContext: boolean;
-    readonly length: number;
-    readonly localStorage: Storage;
+    private _devicePixelRatio: number;
+    private _doNotTrack: string;
+    private _document: Document;
+    private _event: Event | undefined;
+    private _external: External;
+    private _frameElement: Element;
+    private _frames: Window;
+    private _history: History;
+    private _indexedDB: IDBFactory;
+    private _innerHeight: number;
+    private _innerWidth: number;
+    private _isSecureContext: boolean;
+    private _length: number;
+    private _localStorage: Storage;
     private _location: Location;
-    readonly locationbar: BarProp;
-    readonly menubar: BarProp;
-    readonly msContentScript: ExtensionScriptApis;
+    private _locationbar: BarProp;
+    private _menubar: BarProp;
+    private _msContentScript: ExtensionScriptApis;
     private _name: string;
-    readonly navigator: Navigator;
+    private _navigator: Navigator;
     private _offscreenBuffering: string | boolean;
     private _onabort: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
     private _onafterprint: ((this: WindowEventHandlers, ev: Event) => any) | null;
@@ -211,32 +217,32 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     private _onwaiting: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     private _onwheel: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null;
     private _opener: any;
-    readonly orientation: string | number;
-    readonly origin: string;
-    readonly outerHeight: number;
-    readonly outerWidth: number;
-    readonly pageXOffset: number;
-    readonly pageYOffset: number;
-    readonly parent: Window;
-    readonly performance: Performance;
-    readonly personalbar: BarProp;
-    readonly screen: Screen;
-    readonly screenLeft: number;
-    readonly screenTop: number;
-    readonly screenX: number;
-    readonly screenY: number;
-    readonly scrollX: number;
-    readonly scrollY: number;
-    readonly scrollbars: BarProp;
-    readonly self: Window;
-    readonly sessionStorage: Storage;
-    readonly speechSynthesis: SpeechSynthesis;
+    private _orientation: string | number;
+    private _origin: string;
+    private _outerHeight: number;
+    private _outerWidth: number;
+    private _pageXOffset: number;
+    private _pageYOffset: number;
+    private _parent: Window;
+    private _performance: Performance;
+    private _personalbar: BarProp;
+    private _screen: Screen;
+    private _screenLeft: number;
+    private _screenTop: number;
+    private _screenX: number;
+    private _screenY: number;
+    private _scrollX: number;
+    private _scrollY: number;
+    private _scrollbars: BarProp;
+    private _self: Window;
+    private _sessionStorage: Storage;
+    private _speechSynthesis: SpeechSynthesis;
     private _status: string;
-    readonly statusbar: BarProp;
-    readonly styleMedia: StyleMedia;
-    readonly toolbar: BarProp;
-    readonly top: Window;
-    readonly window: Window;
+    private _statusbar: BarProp;
+    private _styleMedia: StyleMedia;
+    private _toolbar: BarProp;
+    private _top: Window;
+    private _window: Window;
 
     disableFullScreen(): void {
         this.fullScreen = false;
@@ -353,6 +359,9 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     }
 
     cancelAnimationFrame(handle: number): void {
+        this.listeners('renderFrame').forEach((listener) => {
+            this.off('renderFrame', listener as any);
+        });
     }
 
     captureEvents(): void {
@@ -516,11 +525,11 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
     private configureCanvasSize(w: number, h: number) {
         if (this.options.fitCanvasInWindow) {
-            this._canvas.width = this.size.w;
-            this._canvas.height = this.size.h;
+            this._internalCanvas.width = this.size.w;
+            this._internalCanvas.height = this.size.h;
         } else {
-            this._canvas.width = w;
-            this._canvas.height = h;
+            this._internalCanvas.width = w;
+            this._internalCanvas.height = h;
         }
     }
 
@@ -528,9 +537,9 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         if (this.options.fitCanvasInWindow) {
             let size = this.size;
             this.size = size = {w: val, h: size.h};
-            this._canvas.width = size.w;
+            this._internalCanvas.width = size.w;
         } else {
-            this._canvas.width = val;
+            this._internalCanvas.width = val;
         }
     }
 
@@ -542,9 +551,9 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         if (this.options.fitCanvasInWindow) {
             let size = this.size;
             this.size = size = {w: size.w, h: val};
-            this._canvas.height = size.h;
+            this._internalCanvas.height = size.h;
         } else {
-            this._canvas.height = val;
+            this._internalCanvas.height = val;
         }
     }
 
@@ -574,7 +583,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
     renderFrame(ms: number) {
         this.emit('renderFrame', ms);
-        const canvas = (this._canvas as any);
+        const canvas = (this._internalCanvas as any);
         const {width, height} = canvas;
 
         const size = this.size;
@@ -596,16 +605,17 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
         const size = this.size;
         this._context.setSize(size.w, size.h);
+        this._document = new SdlDocument(this);
 
         this.initEvents();
     }
 
     initCanvasColors() {
-        const ctx = this._canvas.getContext('2d');
+        const ctx = this._internalCanvas.getContext('2d');
 
         ctx.fillStyle = '#FFFFFF';
         ctx.strokeStyle = '#000000';
-        ctx.fillRect(0, 0, this._canvas.width, this._canvas.height);
+        ctx.fillRect(0, 0, this._internalCanvas.width, this._internalCanvas.height);
 
         ctx.fillStyle = '#000000';
         ctx.strokeStyle = '#000000';
@@ -636,12 +646,12 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
                 } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_RESTORED) {
                     this.emit('restore');
                 } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_ENTER) {
-                    this._hasMouseEntered = true;
+                    this._hasMouseEnteredWindow = true;
                 } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_LEAVE) {
                     if (this._lastMouseEvent) {
                         this.emit('mouseleave', this._lastMouseEvent);
                     }
-                    this._hasMouseEntered = false;
+                    this._hasMouseEnteredWindow = false;
                 } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_FOCUS_GAINED) {
                     this.emit('focus');
                 } else if (evt === SDL_WindowEventID.SDL_WINDOWEVENT_FOCUS_LOST) {
@@ -703,10 +713,11 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
                 const domEvent = getCurrentMouseEvent(event, this);
                 this.decorateMouseEvent(domEvent);
 
-                if (this._hasMouseEntered) {
+                if (this._hasMouseEnteredWindow) {
                     this.emit('mouseenter', domEvent);
-                    this._hasMouseEntered = false;
+                    this._hasMouseEnteredWindow = false;
                 }
+
                 this.emit('mousemove', domEvent);
                 this._lastMouseEvent = domEvent;
             } else if (event.type === SDL_EventType.SDL_MOUSEBUTTONDOWN) {
@@ -763,7 +774,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     destroy() {
         // this.rendererPtr.destroy();
         SDL_DestroyWindow(this._windowPtr);
-        this.emit('closed');
+        this.emit('_closed');
     }
 
     restore() {
@@ -951,12 +962,12 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this._windowPtr = value;
     }
 
-    get hasMouseEntered(): boolean {
-        return this._hasMouseEntered;
+    get hasMouseEnteredWindow(): boolean {
+        return this._hasMouseEnteredWindow;
     }
 
-    set hasMouseEntered(value: boolean) {
-        this._hasMouseEntered = value;
+    set hasMouseEnteredWindow(value: boolean) {
+        this._hasMouseEnteredWindow = value;
     }
 
     get lastMouseEvent(): MouseEvent {
@@ -983,12 +994,12 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this._context = value;
     }
 
-    get canvas(): HTMLCanvasElement {
-        return this._canvas;
+    get internalCanvas(): HTMLCanvasElement {
+        return this._internalCanvas;
     }
 
-    set canvas(value: HTMLCanvasElement) {
-        this._canvas = value;
+    set internalCanvas(value: HTMLCanvasElement) {
+        this._internalCanvas = value;
     }
 
     get Blob(): { prototype: Blob; new(blobParts?: any[], options?: BlobPropertyBag): Blob } {
@@ -2136,9 +2147,43 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this._status = value;
     }
 
+    get canvas(): HTMLCanvasElement {
+        return this._canvas;
+    }
+
+    set canvas(value: HTMLCanvasElement) {
+        this._canvas = value;
+    }
+
+    createImage(src: string): Promise<HTMLImageElement> {
+        if (src) {
+            return loadImage(src) as Promise<HTMLImageElement>;
+        } else {
+            return Promise.resolve(new NodeCanvasImage() as HTMLImageElement);
+        }
+    }
+
+    newCanvas(window?: (NativeWindow | string), windowOptions?: WindowOptions): HTMLCanvasElement {
+        if (windowOptions && window === undefined) {
+
+            const opts = SdlWindow.windowDefaults();
+            const wind = new SdlWindow(opts);
+            return new SdlCanvas(wind);
+        } else if (typeof  window === 'string') {
+            const opts = windowOptions || SdlWindow.windowDefaults();
+
+            opts.title = window;
+            const wind = new SdlWindow(opts);
+            return new SdlCanvas(wind);
+        } else {
+            return new SdlCanvas(window);
+        }
+
+    }
+
     private createCanvas(): void {
         const size = this.size;
-        this._canvas = createInternalCanvas(size.w, size.h, 'image') as HTMLCanvasElement;
+        this._internalCanvas = createInternalCanvas(size.w, size.h, 'image') as HTMLCanvasElement;
         this.initCanvasColors();
         this.initCanvasSize(size);
     }
@@ -2147,6 +2192,202 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         if (this.options.fitCanvasInWindow) {
             this.configureCanvasSize(size.w, size.h);
         }
+    }
+
+    get applicationCache(): ApplicationCache {
+        return this._applicationCache;
+    }
+
+    get caches(): CacheStorage {
+        return this._caches;
+    }
+
+    get clientInformation(): Navigator {
+        return this._clientInformation;
+    }
+
+    get closed(): boolean {
+        return this._closed;
+    }
+
+    get console(): Console {
+        return this._console;
+    }
+
+    get crypto(): Crypto {
+        return this._crypto;
+    }
+
+    get devicePixelRatio(): number {
+        return this._devicePixelRatio;
+    }
+
+    get doNotTrack(): string {
+        return this._doNotTrack;
+    }
+
+    get document(): Document {
+        return this._document;
+    }
+
+    get event(): Event | undefined {
+        return this._event;
+    }
+
+    get external(): External {
+        return this._external;
+    }
+
+    get frameElement(): Element {
+        return this._frameElement;
+    }
+
+    get frames(): Window {
+        return this._frames;
+    }
+
+    get history(): History {
+        return this._history;
+    }
+
+    get indexedDB(): IDBFactory {
+        return this._indexedDB;
+    }
+
+    get innerHeight(): number {
+        return this._innerHeight;
+    }
+
+    get innerWidth(): number {
+        return this._innerWidth;
+    }
+
+    get isSecureContext(): boolean {
+        return this._isSecureContext;
+    }
+
+    get length(): number {
+        return this._length;
+    }
+
+    get localStorage(): Storage {
+        return this._localStorage;
+    }
+
+    get locationbar(): BarProp {
+        return this._locationbar;
+    }
+
+    get menubar(): BarProp {
+        return this._menubar;
+    }
+
+    get msContentScript(): ExtensionScriptApis {
+        return this._msContentScript;
+    }
+
+    get navigator(): Navigator {
+        return this._navigator;
+    }
+
+    get orientation(): string | number {
+        return this._orientation;
+    }
+
+    get origin(): string {
+        return this._origin;
+    }
+
+    get outerHeight(): number {
+        return this._outerHeight;
+    }
+
+    get outerWidth(): number {
+        return this._outerWidth;
+    }
+
+    get pageXOffset(): number {
+        return this._pageXOffset;
+    }
+
+    get pageYOffset(): number {
+        return this._pageYOffset;
+    }
+
+    get parent(): Window {
+        return this._parent;
+    }
+
+    get performance(): Performance {
+        return this._performance;
+    }
+
+    get personalbar(): BarProp {
+        return this._personalbar;
+    }
+
+    get screen(): Screen {
+        return this._screen;
+    }
+
+    get screenLeft(): number {
+        return this._screenLeft;
+    }
+
+    get screenTop(): number {
+        return this._screenTop;
+    }
+
+    get screenX(): number {
+        return this._screenX;
+    }
+
+    get screenY(): number {
+        return this._screenY;
+    }
+
+    get scrollX(): number {
+        return this._scrollX;
+    }
+
+    get scrollY(): number {
+        return this._scrollY;
+    }
+
+    get scrollbars(): BarProp {
+        return this._scrollbars;
+    }
+
+    get self(): Window {
+        return this._self;
+    }
+
+    get sessionStorage(): Storage {
+        return this._sessionStorage;
+    }
+
+    get speechSynthesis(): SpeechSynthesis {
+        return this._speechSynthesis;
+    }
+
+    get statusbar(): BarProp {
+        return this._statusbar;
+    }
+
+    get styleMedia(): StyleMedia {
+        return this._styleMedia;
+    }
+
+    get toolbar(): BarProp {
+        return this._toolbar;
+    }
+
+    get top(): Window {
+        return this._top;
+    }
+
+    get window(): Window {
+        return this;
     }
 
     static windowDefaults() {

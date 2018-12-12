@@ -1,3 +1,5 @@
+import {WindowOptions} from './window-options';
+
 export interface NativeWindow extends Window {
     canvasX: number;
 
@@ -5,7 +7,7 @@ export interface NativeWindow extends Window {
 
     title: string;
 
-    getCanvas(): HTMLCanvasElement;
+    canvas: HTMLCanvasElement;
 
     renderFrame(ms: number): void;
 
@@ -14,4 +16,8 @@ export interface NativeWindow extends Window {
     disableFullScreen(): void;
 
     windowImplementation(): any;
+
+    createImage(src: string): Promise<HTMLImageElement>;
+
+    newCanvas(window?: (NativeWindow | string), windowOptions?: WindowOptions): HTMLCanvasElement;
 }

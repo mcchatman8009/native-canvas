@@ -1,8 +1,10 @@
+import {SdlWindow} from '../sdl-window/sdl-window';
+
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 
 
-export class NativeDocument implements Document {
+export class SdlDocument implements Document {
     readonly ATTRIBUTE_NODE: number;
     readonly CDATA_SECTION_NODE: number;
     readonly COMMENT_NODE: number;
@@ -180,7 +182,7 @@ export class NativeDocument implements Document {
     private _canvas: HTMLCanvasElement;
     private _document: any;
 
-    constructor(private globalCtx: any) {
+    constructor(private sdlWindow: SdlWindow) {
         this._document = new JSDOM(`<body></body>`).window.document;
     }
 
@@ -206,7 +208,7 @@ export class NativeDocument implements Document {
     // addEventListener<K extends keyof GlobalEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     // addEventListener<K extends keyof DocumentAndElementEventHandlersEventMap>(type: K, listener: (this: DocumentAndElementEventHandlers, ev: DocumentAndElementEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: any, options?: boolean | AddEventListenerOptions): void {
-        this.window.addEventListener(type, listener, options);
+        this.window.addEventListener(type as any, listener, options);
     }
 
     adoptNode<T extends Node>(source: T): T {
@@ -273,12 +275,9 @@ export class NativeDocument implements Document {
         return this._document.createDocumentFragment();
     }
 
-    // createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): any;
-    // createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, options?: ElementCreationOptions): any;
-    // createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;
     createElement(tagName: string, options?: ElementCreationOptions): any | HTMLElement {
         if (tagName === 'canvas') {
-            const canvas = this.globalCtx.createCanvas('');
+            const canvas = this.sdlWindow.canvas;
             this._canvas = canvas;
             return canvas;
         } else {
@@ -345,8 +344,7 @@ export class NativeDocument implements Document {
 
     exitFullscreen(): Promise<void> {
         if (this._canvas) {
-            const window = (this._canvas  as any).window;
-            window.disableFullScreen();
+            this.window.disableFullScreen();
         }
 
         return Promise.resolve(null);
@@ -358,9 +356,10 @@ export class NativeDocument implements Document {
 
     getElementById(elementId: string): HTMLElement | any | Element {
         if (this._canvas) {
-            return this._document.getElementById(elementId);
+            // return this._document.getElementById(elementId);
+            return this._canvas;
         } else {
-            this._canvas = this.globalCtx.createCanvas('');
+            this._canvas = this.sdlWindow.canvas;
             return this._canvas;
         }
     }
@@ -693,11 +692,11 @@ export class NativeDocument implements Document {
     }
 
     get oncopy(): ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null {
-        return this.window.oncopy;
+        return null;
     }
 
     set oncopy(value: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null) {
-        this.window.oncopy = value;
+        // this.window.oncopy = value;
     }
 
     get oncuechange(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
@@ -709,11 +708,12 @@ export class NativeDocument implements Document {
     }
 
     get oncut(): ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null {
-        return this.window.oncut;
+        // return this.window.oncut;
+        return null;
     }
 
     set oncut(value: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null) {
-        this.window.oncut = value;
+        // this.window.oncut = value;
     }
 
     get ondblclick(): ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null {
@@ -829,19 +829,21 @@ export class NativeDocument implements Document {
     }
 
     get onfullscreenchange(): ((this: Document, ev: Event) => any) | null {
-        return this.window.onfullscreenchange;
+        // return this.window.onfullscreenchange;
+        return null;
     }
 
     set onfullscreenchange(value: ((this: Document, ev: Event) => any) | null) {
-        this.window.onfullscreenchange = value;
+        // this.window.onfullscreenchange = value;
     }
 
     get onfullscreenerror(): ((this: Document, ev: Event) => any) | null {
-        return this.window.onfullscreenerror;
+        // return this.window.onfullscreenerror;
+        return null;
     }
 
     set onfullscreenerror(value: ((this: Document, ev: Event) => any) | null) {
-        this.window.onfullscreenerror = value;
+        // this.window.onfullscreenerror = value;
     }
 
     get ongotpointercapture(): ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null {
@@ -997,11 +999,12 @@ export class NativeDocument implements Document {
     }
 
     get onpaste(): ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null {
-        return this.window.onpaste;
+        // return this.window.onpaste;
+        return null;
     }
 
     set onpaste(value: ((this: DocumentAndElementEventHandlers, ev: ClipboardEvent) => any) | null) {
-        this.window.onpaste = value;
+        // this.window.onpaste = value;
     }
 
     get onpause(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
@@ -1109,11 +1112,12 @@ export class NativeDocument implements Document {
     }
 
     get onreadystatechange(): ((this: Document, ev: ProgressEvent) => any) | null {
-        return this.window.onreadystatechange;
+        // return this.window.onreadystatechange;
+        return null;
     }
 
     set onreadystatechange(value: ((this: Document, ev: ProgressEvent) => any) | null) {
-        this.window.onreadystatechange = value;
+        // this.window.onreadystatechange = value;
     }
 
     get onreset(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
@@ -1277,11 +1281,12 @@ export class NativeDocument implements Document {
     }
 
     get onvisibilitychange(): ((this: Document, ev: Event) => any) | null {
-        return this.window.onvisibilitychange;
+        // return this.window.onvisibilitychange;
+        return null;
     }
 
     set onvisibilitychange(value: ((this: Document, ev: Event) => any) | null) {
-        this.window.onvisibilitychange = value;
+        // this.window.onvisibilitychange = value;
     }
 
     get onvolumechange(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
@@ -1340,7 +1345,7 @@ export class NativeDocument implements Document {
         this._document = value;
     }
 
-    get window(): any {
-        return (this.canvas as any).window;
+    get window(): SdlWindow {
+        return this.sdlWindow;
     }
 }

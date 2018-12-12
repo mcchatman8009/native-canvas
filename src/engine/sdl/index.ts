@@ -2,13 +2,13 @@ import {WindowOptions} from '../../window/window-options';
 import {NativeWindow} from '../../window/native-window';
 import {SdlWindow} from './sdl-window/sdl-window';
 import {applicationContext} from './app/application-context';
+import {SdlCanvas} from './canvas/sdl-canvas';
 
 export function createWindow(options: WindowOptions): NativeWindow {
-    return new SdlWindow(options);
-}
-
-export function defaultWindowOptions(): WindowOptions {
-    return SdlWindow.windowDefaults();
+    const opts = options || SdlWindow.windowDefaults();
+    const sdlWindow = new SdlWindow(opts);
+    sdlWindow.canvas = new SdlCanvas(sdlWindow);
+    return sdlWindow;
 }
 
 export function alert(message?: string) {

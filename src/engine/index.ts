@@ -48,14 +48,3 @@ export function createWindow(engine: string, options: WindowOptions): NativeWind
 
     throw new ReferenceError(`Unknown engine ${engine}`);
 }
-
-export function defaultWindowOptions(engine: string): WindowOptions {
-    switch (engine) {
-        case 'sdl':
-            return SDL.defaultWindowOptions();
-    }
-
-    throw new ReferenceError(`Unknown engine ${engine}`);
-}
-;
-
