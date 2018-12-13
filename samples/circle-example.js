@@ -1,7 +1,6 @@
-const nativeCanvas = require('../dist');
+require('../dist');
 
-const canvas = nativeCanvas.createCanvas('Basic Example');
-const ctx = canvas.getContext("2d");
+const ctx = window.canvas.getContext("2d");
 canvas.height = 150;
 
 ctx.lineWidth = 1;

@@ -29,5 +29,4 @@ export function alert(message?: string): void {
 
 export function createWindow(opts?: WindowOptions): NativeWindow {
     return engine.createWindow(ENGINE_NAME, opts);
-
 }

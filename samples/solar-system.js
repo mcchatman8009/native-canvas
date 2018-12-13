@@ -1,6 +1,6 @@
 require('../dist');
 
-const canvas = createCanvas('Basic Example');
+const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 const sun = new Image();

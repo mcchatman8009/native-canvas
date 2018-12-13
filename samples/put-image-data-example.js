@@ -1,6 +1,5 @@
 require('../dist');
 
-const canvas = createCanvas('Basic Example');
 const ctx = canvas.getContext("2d");
 
 function putImageData(ctx, imageData, dx, dy,

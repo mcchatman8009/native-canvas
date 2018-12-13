@@ -1,6 +1,6 @@
 require('../dist');
 
-var canvas = document.getElementById('internalCanvas');
+var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var raf;
 
@@ -38,11 +38,11 @@ function draw() {
     raf = window.requestAnimationFrame(draw);
 }
 
-canvas.addEventListener('mouseover', function (e) {
+addEventListener('mouseover', function (e) {
     raf = window.requestAnimationFrame(draw);
 });
 
-canvas.addEventListener('mouseout', function (e) {
+addEventListener('mouseout', function (e) {
     window.cancelAnimationFrame(raf);
 });
 

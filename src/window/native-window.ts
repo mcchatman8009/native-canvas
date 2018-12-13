@@ -17,7 +17,7 @@ export interface NativeWindow extends Window {
 
     windowImplementation(): any;
 
-    createImage(src: string): Promise<HTMLImageElement>;
+    loadImage(src: string): Promise<HTMLImageElement>;
 
     newCanvas(window?: (NativeWindow | string), windowOptions?: WindowOptions): HTMLCanvasElement;
 }

@@ -1,7 +1,5 @@
-const nativeCanvas = require('../dist');
+require('../dist');
 
-const canvas = nativeCanvas.createCanvas('Basic Example');
-// internalCanvas.width = 400;
 const ctx = canvas.getContext("2d");
 ctx.rect(10, 10, 100, 100);
 ctx.fill();

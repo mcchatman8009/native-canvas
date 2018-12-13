@@ -1,8 +1,4 @@
-const {loadImage, Image} = require('canvas');
-const nativeCanvas = require('../dist');
-const fs = require('fs');
-const canvas = nativeCanvas.createCanvas('Basic Example');
-const http = require("http");
+require('../dist');
 
 function clock() {
     const now = new Date();

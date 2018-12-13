@@ -1,9 +1,10 @@
-const {createCanvas, createImage} = require('../dist');
+require('../dist');
 
-const canvas = createCanvas('Basic Example');
+window.title = 'Basic Example';
+
 const ctx = canvas.getContext("2d");
 
-canvas.addEventListener('drop', (evt) => {
+window.addEventListener('drop', (evt) => {
     createImage(evt.file).then((img) => {
         ctx.drawImage(img, 0, 0);
     });

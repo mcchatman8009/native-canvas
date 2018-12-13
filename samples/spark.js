@@ -1,5 +1,5 @@
-const nativeCanvas = require('../dist');
-const canvas = nativeCanvas.createCanvas('Basic Example');
+require('../dist');
+
 const ctx = canvas.getContext('2d');
 
 function spark(ctx, data) {

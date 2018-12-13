@@ -44,7 +44,6 @@ const createInternalCanvas = require('canvas').createCanvas;
 const {loadImage} = require('canvas');
 
 export class SdlWindow extends EventEmitter implements NativeWindow {
-
     private _windowPtr: any;
     private _hasMouseEnteredWindow = false;
     private _lastMouseEvent: MouseEvent;
@@ -2156,6 +2155,10 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     }
 
     createImage(src: string): Promise<HTMLImageElement> {
+        return this.loadImage(src);
+    }
+
+    loadImage(src: string): Promise<HTMLImageElement> {
         if (src) {
             return loadImage(src) as Promise<HTMLImageElement>;
         } else {
@@ -2388,6 +2391,178 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
     get window(): Window {
         return this;
+    }
+
+    set devicePixelRatio(value: number) {
+        this._devicePixelRatio = value;
+    }
+
+    set doNotTrack(value: string) {
+        this._doNotTrack = value;
+    }
+
+    set document(value: Document) {
+        this._document = value;
+    }
+
+    set event(value: Event | undefined) {
+        this._event = value;
+    }
+
+    set external(value: External) {
+        this._external = value;
+    }
+
+    set frameElement(value: Element) {
+        this._frameElement = value;
+    }
+
+    set frames(value: Window) {
+        this._frames = value;
+    }
+
+    set history(value: History) {
+        this._history = value;
+    }
+
+    set indexedDB(value: IDBFactory) {
+        this._indexedDB = value;
+    }
+
+    set innerHeight(value: number) {
+        this._innerHeight = value;
+    }
+
+    set innerWidth(value: number) {
+        this._innerWidth = value;
+    }
+
+    set isSecureContext(value: boolean) {
+        this._isSecureContext = value;
+    }
+
+    set length(value: number) {
+        this._length = value;
+    }
+
+    set localStorage(value: Storage) {
+        this._localStorage = value;
+    }
+
+    set locationbar(value: BarProp) {
+        this._locationbar = value;
+    }
+
+    set menubar(value: BarProp) {
+        this._menubar = value;
+    }
+
+    set msContentScript(value: ExtensionScriptApis) {
+        this._msContentScript = value;
+    }
+
+    set navigator(value: Navigator) {
+        this._navigator = value;
+    }
+
+    set orientation(value: string | number) {
+        this._orientation = value;
+    }
+
+    set origin(value: string) {
+        this._origin = value;
+    }
+
+    set outerHeight(value: number) {
+        this._outerHeight = value;
+    }
+
+    set outerWidth(value: number) {
+        this._outerWidth = value;
+    }
+
+    set pageXOffset(value: number) {
+        this._pageXOffset = value;
+    }
+
+    set pageYOffset(value: number) {
+        this._pageYOffset = value;
+    }
+
+    set parent(value: Window) {
+        this._parent = value;
+    }
+
+    set performance(value: Performance) {
+        this._performance = value;
+    }
+
+    set personalbar(value: BarProp) {
+        this._personalbar = value;
+    }
+
+    set screen(value: Screen) {
+        this._screen = value;
+    }
+
+    set screenLeft(value: number) {
+        this._screenLeft = value;
+    }
+
+    set screenTop(value: number) {
+        this._screenTop = value;
+    }
+
+    set screenX(value: number) {
+        this._screenX = value;
+    }
+
+    set screenY(value: number) {
+        this._screenY = value;
+    }
+
+    set scrollX(value: number) {
+        this._scrollX = value;
+    }
+
+    set scrollY(value: number) {
+        this._scrollY = value;
+    }
+
+    set scrollbars(value: BarProp) {
+        this._scrollbars = value;
+    }
+
+    set self(value: Window) {
+        this._self = value;
+    }
+
+    set sessionStorage(value: Storage) {
+        this._sessionStorage = value;
+    }
+
+    set speechSynthesis(value: SpeechSynthesis) {
+        this._speechSynthesis = value;
+    }
+
+    set statusbar(value: BarProp) {
+        this._statusbar = value;
+    }
+
+    set styleMedia(value: StyleMedia) {
+        this._styleMedia = value;
+    }
+
+    set toolbar(value: BarProp) {
+        this._toolbar = value;
+    }
+
+    set top(value: Window) {
+        this._top = value;
+    }
+
+    set window(value: Window) {
+        this._window = value;
     }
 
     static windowDefaults() {

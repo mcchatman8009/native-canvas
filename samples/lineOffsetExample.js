@@ -1,8 +1,5 @@
-const nativeCanvas = require('../dist');
-const fs = require('fs');
+require('../dist');
 
-// const w = window;
-const canvas = nativeCanvas.createCanvas('Moving Ants', {width: 300, height: 200});
 const ctx = canvas.getContext('2d');
 
 let offset = 0;
