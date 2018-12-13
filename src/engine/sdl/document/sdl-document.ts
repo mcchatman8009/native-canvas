@@ -3,74 +3,74 @@ import {SdlWindow} from '../sdl-window/sdl-window';
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 
-
 export class SdlDocument implements Document {
-    readonly ATTRIBUTE_NODE: number;
-    readonly CDATA_SECTION_NODE: number;
-    readonly COMMENT_NODE: number;
-    readonly DOCUMENT_FRAGMENT_NODE: number;
-    readonly DOCUMENT_NODE: number;
-    readonly DOCUMENT_POSITION_CONTAINED_BY: number;
-    readonly DOCUMENT_POSITION_CONTAINS: number;
-    readonly DOCUMENT_POSITION_DISCONNECTED: number;
-    readonly DOCUMENT_POSITION_FOLLOWING: number;
-    readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
-    readonly DOCUMENT_POSITION_PRECEDING: number;
-    readonly DOCUMENT_TYPE_NODE: number;
-    readonly ELEMENT_NODE: number;
-    readonly ENTITY_NODE: number;
-    readonly ENTITY_REFERENCE_NODE: number;
-    readonly NOTATION_NODE: number;
-    readonly PROCESSING_INSTRUCTION_NODE: number;
-    readonly TEXT_NODE: number;
-    readonly URL: string;
-    readonly activeElement: Element | null;
+    private _ATTRIBUTE_NODE: number;
+    private _CDATA_SECTION_NODE: number;
+    private _COMMENT_NODE: number;
+    private _DOCUMENT_FRAGMENT_NODE: number;
+    private _DOCUMENT_NODE: number;
+    private _DOCUMENT_POSITION_CONTAINED_BY: number;
+    private _DOCUMENT_POSITION_CONTAINS: number;
+    private _DOCUMENT_POSITION_DISCONNECTED: number;
+    private _DOCUMENT_POSITION_FOLLOWING: number;
+    private _DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
+    private _DOCUMENT_POSITION_PRECEDING: number;
+    private _DOCUMENT_TYPE_NODE: number;
+    private _ELEMENT_NODE: number;
+    private _ENTITY_NODE: number;
+    private _ENTITY_REFERENCE_NODE: number;
+    private _NOTATION_NODE: number;
+    private _PROCESSING_INSTRUCTION_NODE: number;
+    private _TEXT_NODE: number;
+    private _URL: string;
+    private _activeElement: Element | null;
     private _alinkColor: string;
-    readonly all: HTMLAllCollection;
-    readonly anchors: HTMLCollectionOf<HTMLAnchorElement>;
-    readonly applets: HTMLCollectionOf<HTMLAppletElement>;
-    readonly baseURI: string;
+    private _all: HTMLAllCollection;
+    private _anchors: HTMLCollectionOf<HTMLAnchorElement>;
+    private _applets: HTMLCollectionOf<HTMLAppletElement>;
+    private _baseURI: string;
     private _bgColor: string;
     private _body: HTMLElement;
-    readonly characterSet: string;
-    readonly charset: string;
-    readonly childElementCount: number;
-    readonly childNodes: NodeListOf<ChildNode>;
-    readonly children: HTMLCollection;
-    readonly compatMode: string;
-    readonly contentType: string;
+    private _characterSet: string;
+    private _charset: string;
+    private _childElementCount: number;
+    private _childNodes: NodeListOf<ChildNode>;
+    private _children: HTMLCollection;
+    private _compatMode: string;
+    private _contentType: string;
     private _cookie: string;
-    readonly currentScript: HTMLOrSVGScriptElement | null;
-    readonly defaultView: WindowProxy | null;
+    private _currentScript: HTMLOrSVGScriptElement | null;
+    private _defaultView: WindowProxy | null;
     private _designMode: string;
     private _dir: string;
-    readonly doctype: DocumentType | null;
-    readonly documentElement: HTMLElement | null;
-    readonly documentURI: string;
+    private _doctype: DocumentType | null;
+    private _documentElement: HTMLElement | null;
+    private _documentURI: string;
     private _domain: string;
-    readonly embeds: HTMLCollectionOf<HTMLEmbedElement>;
+    private _embeds: HTMLCollectionOf<HTMLEmbedElement>;
     private _fgColor: string;
-    readonly firstChild: ChildNode | null;
-    readonly firstElementChild: Element | null;
-    readonly forms: HTMLCollectionOf<HTMLFormElement>;
-    readonly fullscreen: boolean;
-    readonly fullscreenEnabled: boolean;
-    readonly head: HTMLHeadElement | null;
-    readonly hidden: boolean;
-    readonly images: HTMLCollectionOf<HTMLImageElement>;
-    readonly implementation: DOMImplementation;
-    readonly inputEncoding: string;
-    readonly isConnected: boolean;
-    readonly lastChild: ChildNode | null;
-    readonly lastElementChild: Element | null;
-    readonly lastModified: string;
+    private _firstChild: ChildNode | null;
+    private _firstElementChild: Element | null;
+    private _forms: HTMLCollectionOf<HTMLFormElement>;
+    private _fullscreen: boolean;
+    private _fullscreenEnabled: boolean;
+    private _head: HTMLHeadElement | null;
+    private _hidden: boolean;
+    private _images: HTMLCollectionOf<HTMLImageElement>;
+    private _implementation: DOMImplementation;
+    private _inputEncoding: string;
+    private _isConnected: boolean;
+    private _lastChild: ChildNode | null;
+    private _lastElementChild: Element | null;
+    private _lastModified: string;
     private _linkColor: string;
-    readonly links: HTMLCollectionOf<HTMLAnchorElement | HTMLAreaElement>;
+    private _links: HTMLCollectionOf<HTMLAnchorElement | HTMLAreaElement>;
     private _location: Location | null;
-    readonly namespaceURI: string | null;
-    readonly nextSibling: Node | null;
-    readonly nodeName: string;
-    readonly nodeType: number;
+    private _namespaceURI: string | null;
+    private _nextSibling: Node | null;
+    private _nodeName: string;
+
+    private _nodeType: number;
     private _nodeValue: string | null;
     private _onabort: ((this: GlobalEventHandlers, ev: UIEvent) => any) | null;
     private _onanimationcancel: ((this: GlobalEventHandlers, ev: AnimationEvent) => any) | null;
@@ -163,27 +163,589 @@ export class SdlDocument implements Document {
     private _onvolumechange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     private _onwaiting: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     private _onwheel: ((this: GlobalEventHandlers, ev: WheelEvent) => any) | null;
-    readonly origin: string;
-    readonly ownerDocument: Document | null;
-    readonly parentElement: HTMLElement | null;
-    readonly parentNode: (Node & ParentNode) | null;
-    readonly plugins: HTMLCollectionOf<HTMLEmbedElement>;
-    readonly previousSibling: Node | null;
-    readonly readyState: DocumentReadyState;
-    readonly referrer: string;
-    readonly scripts: HTMLCollectionOf<HTMLScriptElement>;
-    readonly scrollingElement: Element | null;
-    readonly styleSheets: StyleSheetList;
+    private _origin: string;
+    private _ownerDocument: Document | null;
+    private _parentElement: HTMLElement | null;
+    private _parentNode: (Node & ParentNode) | null;
+    private _plugins: HTMLCollectionOf<HTMLEmbedElement>;
+    private _previousSibling: Node | null;
+    private _readyState: DocumentReadyState;
+    private _referrer: string;
+    private _scripts: HTMLCollectionOf<HTMLScriptElement>;
+    private _scrollingElement: Element | null;
+    private _styleSheets: StyleSheetList;
     private _textContent: string | null;
-    readonly timeline: DocumentTimeline;
+    private _timeline: DocumentTimeline;
     private _title: string;
-    readonly visibilityState: VisibilityState;
+    private _visibilityState: VisibilityState;
     private _vlinkColor: string;
     private _canvas: HTMLCanvasElement;
     private _document: any;
 
     constructor(private sdlWindow: SdlWindow) {
         this._document = new JSDOM(`<body></body>`).window.document;
+    }
+
+    get clientTop() {
+        return 0;
+
+    }
+
+    get clientLeft() {
+        return 0;
+
+    }
+
+    get ATTRIBUTE_NODE(): number {
+        return this._ATTRIBUTE_NODE;
+    }
+
+    set ATTRIBUTE_NODE(value: number) {
+        this._ATTRIBUTE_NODE = value;
+    }
+
+    get CDATA_SECTION_NODE(): number {
+        return this._CDATA_SECTION_NODE;
+    }
+
+    set CDATA_SECTION_NODE(value: number) {
+        this._CDATA_SECTION_NODE = value;
+    }
+
+    get COMMENT_NODE(): number {
+        return this._COMMENT_NODE;
+    }
+
+    set COMMENT_NODE(value: number) {
+        this._COMMENT_NODE = value;
+    }
+
+    get DOCUMENT_FRAGMENT_NODE(): number {
+        return this._DOCUMENT_FRAGMENT_NODE;
+    }
+
+    set DOCUMENT_FRAGMENT_NODE(value: number) {
+        this._DOCUMENT_FRAGMENT_NODE = value;
+    }
+
+    get DOCUMENT_NODE(): number {
+        return this._DOCUMENT_NODE;
+    }
+
+    set DOCUMENT_NODE(value: number) {
+        this._DOCUMENT_NODE = value;
+    }
+
+    get DOCUMENT_POSITION_CONTAINED_BY(): number {
+        return this._DOCUMENT_POSITION_CONTAINED_BY;
+    }
+
+    set DOCUMENT_POSITION_CONTAINED_BY(value: number) {
+        this._DOCUMENT_POSITION_CONTAINED_BY = value;
+    }
+
+    get DOCUMENT_POSITION_CONTAINS(): number {
+        return this._DOCUMENT_POSITION_CONTAINS;
+    }
+
+    set DOCUMENT_POSITION_CONTAINS(value: number) {
+        this._DOCUMENT_POSITION_CONTAINS = value;
+    }
+
+    get DOCUMENT_POSITION_DISCONNECTED(): number {
+        return this._DOCUMENT_POSITION_DISCONNECTED;
+    }
+
+    set DOCUMENT_POSITION_DISCONNECTED(value: number) {
+        this._DOCUMENT_POSITION_DISCONNECTED = value;
+    }
+
+    get DOCUMENT_POSITION_FOLLOWING(): number {
+        return this._DOCUMENT_POSITION_FOLLOWING;
+    }
+
+    set DOCUMENT_POSITION_FOLLOWING(value: number) {
+        this._DOCUMENT_POSITION_FOLLOWING = value;
+    }
+
+    get DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC(): number {
+        return this._DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+    }
+
+    set DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC(value: number) {
+        this._DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = value;
+    }
+
+    get DOCUMENT_POSITION_PRECEDING(): number {
+        return this._DOCUMENT_POSITION_PRECEDING;
+    }
+
+    set DOCUMENT_POSITION_PRECEDING(value: number) {
+        this._DOCUMENT_POSITION_PRECEDING = value;
+    }
+
+    get DOCUMENT_TYPE_NODE(): number {
+        return this._DOCUMENT_TYPE_NODE;
+    }
+
+    set DOCUMENT_TYPE_NODE(value: number) {
+        this._DOCUMENT_TYPE_NODE = value;
+    }
+
+    get ELEMENT_NODE(): number {
+        return this._ELEMENT_NODE;
+    }
+
+    set ELEMENT_NODE(value: number) {
+        this._ELEMENT_NODE = value;
+    }
+
+    get ENTITY_NODE(): number {
+        return this._ENTITY_NODE;
+    }
+
+    set ENTITY_NODE(value: number) {
+        this._ENTITY_NODE = value;
+    }
+
+    get ENTITY_REFERENCE_NODE(): number {
+        return this._ENTITY_REFERENCE_NODE;
+    }
+
+    set ENTITY_REFERENCE_NODE(value: number) {
+        this._ENTITY_REFERENCE_NODE = value;
+    }
+
+    get NOTATION_NODE(): number {
+        return this._NOTATION_NODE;
+    }
+
+    set NOTATION_NODE(value: number) {
+        this._NOTATION_NODE = value;
+    }
+
+    get PROCESSING_INSTRUCTION_NODE(): number {
+        return this._PROCESSING_INSTRUCTION_NODE;
+    }
+
+    set PROCESSING_INSTRUCTION_NODE(value: number) {
+        this._PROCESSING_INSTRUCTION_NODE = value;
+    }
+
+    get TEXT_NODE(): number {
+        return this._TEXT_NODE;
+    }
+
+    set TEXT_NODE(value: number) {
+        this._TEXT_NODE = value;
+    }
+
+    get URL(): string {
+        return this._URL;
+    }
+
+    set URL(value: string) {
+        this._URL = value;
+    }
+
+    get activeElement(): Element | null {
+        return this._activeElement;
+    }
+
+    set activeElement(value: Element | null) {
+        this._activeElement = value;
+    }
+
+    get all(): HTMLAllCollection {
+        return this._all;
+    }
+
+    set all(value: HTMLAllCollection) {
+        this._all = value;
+    }
+
+    get anchors(): HTMLCollectionOf<HTMLAnchorElement> {
+        return this._anchors;
+    }
+
+    set anchors(value: HTMLCollectionOf<HTMLAnchorElement>) {
+        this._anchors = value;
+    }
+
+    get applets(): HTMLCollectionOf<HTMLAppletElement> {
+        return this._applets;
+    }
+
+    set applets(value: HTMLCollectionOf<HTMLAppletElement>) {
+        this._applets = value;
+    }
+
+    get baseURI(): string {
+        return this._baseURI;
+    }
+
+    set baseURI(value: string) {
+        this._baseURI = value;
+    }
+
+    get characterSet(): string {
+        return this._characterSet;
+    }
+
+    set characterSet(value: string) {
+        this._characterSet = value;
+    }
+
+    get charset(): string {
+        return this._charset;
+    }
+
+    set charset(value: string) {
+        this._charset = value;
+    }
+
+    get childElementCount(): number {
+        return this._childElementCount;
+    }
+
+    set childElementCount(value: number) {
+        this._childElementCount = value;
+    }
+
+    get childNodes(): NodeListOf<ChildNode> {
+        return [] as any;
+    }
+
+    set childNodes(value: NodeListOf<ChildNode>) {
+        this._childNodes = value;
+    }
+
+    get children(): HTMLCollection {
+        return this._children;
+    }
+
+    set children(value: HTMLCollection) {
+        this._children = value;
+    }
+
+    get compatMode(): string {
+        return this._compatMode;
+    }
+
+    set compatMode(value: string) {
+        this._compatMode = value;
+    }
+
+    get contentType(): string {
+        return this._contentType;
+    }
+
+    set contentType(value: string) {
+        this._contentType = value;
+    }
+
+    get currentScript(): HTMLOrSVGScriptElement | null {
+        return this._currentScript;
+    }
+
+    set currentScript(value: HTMLOrSVGScriptElement | null) {
+        this._currentScript = value;
+    }
+
+    get defaultView(): WindowProxy | null {
+        return this._defaultView;
+    }
+
+    set defaultView(value: WindowProxy | null) {
+        this._defaultView = value;
+    }
+
+    get doctype(): DocumentType | null {
+        return this._doctype;
+    }
+
+    set doctype(value: DocumentType | null) {
+        this._doctype = value;
+    }
+
+    get documentElement(): HTMLElement | null {
+        return this as any;
+    }
+
+    set documentElement(value: HTMLElement | null) {
+        this._documentElement = value;
+    }
+
+    get documentURI(): string {
+        return this._documentURI;
+    }
+
+    set documentURI(value: string) {
+        this._documentURI = value;
+    }
+
+    get embeds(): HTMLCollectionOf<HTMLEmbedElement> {
+        return this._embeds;
+    }
+
+    set embeds(value: HTMLCollectionOf<HTMLEmbedElement>) {
+        this._embeds = value;
+    }
+
+    get firstChild(): ChildNode | null {
+        return this._firstChild;
+    }
+
+    set firstChild(value: ChildNode | null) {
+        this._firstChild = value;
+    }
+
+    get firstElementChild(): Element | null {
+        return this._firstElementChild;
+    }
+
+    set firstElementChild(value: Element | null) {
+        this._firstElementChild = value;
+    }
+
+    get forms(): HTMLCollectionOf<HTMLFormElement> {
+        return this._forms;
+    }
+
+    set forms(value: HTMLCollectionOf<HTMLFormElement>) {
+        this._forms = value;
+    }
+
+    get fullscreen(): boolean {
+        return this._fullscreen;
+    }
+
+    set fullscreen(value: boolean) {
+        this._fullscreen = value;
+    }
+
+    get fullscreenEnabled(): boolean {
+        return this._fullscreenEnabled;
+    }
+
+    set fullscreenEnabled(value: boolean) {
+        this._fullscreenEnabled = value;
+    }
+
+    get head(): HTMLHeadElement | null {
+        return this._head;
+    }
+
+    set head(value: HTMLHeadElement | null) {
+        this._head = value;
+    }
+
+    get hidden(): boolean {
+        return this._hidden;
+    }
+
+    set hidden(value: boolean) {
+        this._hidden = value;
+    }
+
+    get images(): HTMLCollectionOf<HTMLImageElement> {
+        return this._images;
+    }
+
+    set images(value: HTMLCollectionOf<HTMLImageElement>) {
+        this._images = value;
+    }
+
+    get implementation(): DOMImplementation {
+        return this._implementation;
+    }
+
+    set implementation(value: DOMImplementation) {
+        this._implementation = value;
+    }
+
+    get inputEncoding(): string {
+        return this._inputEncoding;
+    }
+
+    set inputEncoding(value: string) {
+        this._inputEncoding = value;
+    }
+
+    get isConnected(): boolean {
+        return this._isConnected;
+    }
+
+    set isConnected(value: boolean) {
+        this._isConnected = value;
+    }
+
+    get lastChild(): ChildNode | null {
+        return this._lastChild;
+    }
+
+    set lastChild(value: ChildNode | null) {
+        this._lastChild = value;
+    }
+
+    get lastElementChild(): Element | null {
+        return this._lastElementChild;
+    }
+
+    set lastElementChild(value: Element | null) {
+        this._lastElementChild = value;
+    }
+
+    get lastModified(): string {
+        return this._lastModified;
+    }
+
+    set lastModified(value: string) {
+        this._lastModified = value;
+    }
+
+    get links(): HTMLCollectionOf<HTMLAnchorElement | HTMLAreaElement> {
+        return this._links;
+    }
+
+    set links(value: HTMLCollectionOf<HTMLAnchorElement | HTMLAreaElement>) {
+        this._links = value;
+    }
+
+    get namespaceURI(): string | null {
+        return this._namespaceURI;
+    }
+
+    set namespaceURI(value: string | null) {
+        this._namespaceURI = value;
+    }
+
+    get nextSibling(): Node | null {
+        return this._nextSibling;
+    }
+
+    set nextSibling(value: Node | null) {
+        this._nextSibling = value;
+    }
+
+    get nodeName(): string {
+        return this._nodeName;
+    }
+
+    set nodeName(value: string) {
+        this._nodeName = value;
+    }
+
+    get nodeType(): number {
+        return this._nodeType;
+    }
+
+    set nodeType(value: number) {
+        this._nodeType = value;
+    }
+
+    get origin(): string {
+        return this._origin;
+    }
+
+    set origin(value: string) {
+        this._origin = value;
+    }
+
+    get ownerDocument(): Document | null {
+        return this._ownerDocument;
+    }
+
+    set ownerDocument(value: Document | null) {
+        this._ownerDocument = value;
+    }
+
+    get parentElement(): HTMLElement | null {
+        return this._parentElement;
+    }
+
+    set parentElement(value: HTMLElement | null) {
+        this._parentElement = value;
+    }
+
+    get parentNode(): (Node & ParentNode) | null {
+        return this._parentNode;
+    }
+
+    set parentNode(value: (Node & ParentNode) | null) {
+        this._parentNode = value;
+    }
+
+    get plugins(): HTMLCollectionOf<HTMLEmbedElement> {
+        return this._plugins;
+    }
+
+    set plugins(value: HTMLCollectionOf<HTMLEmbedElement>) {
+        this._plugins = value;
+    }
+
+    get previousSibling(): Node | null {
+        return this._previousSibling;
+    }
+
+    set previousSibling(value: Node | null) {
+        this._previousSibling = value;
+    }
+
+    get readyState(): DocumentReadyState {
+        return 'complete';
+    }
+
+    set readyState(value: DocumentReadyState) {
+        this._readyState = value;
+    }
+
+    get referrer(): string {
+        return this._referrer;
+    }
+
+    set referrer(value: string) {
+        this._referrer = value;
+    }
+
+    get scripts(): HTMLCollectionOf<HTMLScriptElement> {
+        return this._scripts;
+    }
+
+    set scripts(value: HTMLCollectionOf<HTMLScriptElement>) {
+        this._scripts = value;
+    }
+
+    get scrollingElement(): Element | null {
+        return this._scrollingElement;
+    }
+
+    set scrollingElement(value: Element | null) {
+        this._scrollingElement = value;
+    }
+
+    get styleSheets(): StyleSheetList {
+        return this._styleSheets;
+    }
+
+    set styleSheets(value: StyleSheetList) {
+        this._styleSheets = value;
+    }
+
+    get timeline(): DocumentTimeline {
+        return this._timeline;
+    }
+
+    set timeline(value: DocumentTimeline) {
+        this._timeline = value;
+    }
+
+    get visibilityState(): VisibilityState {
+        return this._visibilityState;
+    }
+
+    set visibilityState(value: VisibilityState) {
+        this._visibilityState = value;
     }
 
     get title(): string {
@@ -216,11 +778,13 @@ export class SdlDocument implements Document {
     }
 
     append(...nodes: (Node | string)[]): void {
-        return this._document.append(nodes);
+        // return this._document.append(nodes);
+        return undefined;
     }
 
     appendChild<T extends Node>(newChild: T): T {
-        return this._document.appendChild(newChild);
+        // return this._document.appendChild(newChild);
+        return undefined;
     }
 
     captureEvents(): void {
@@ -402,7 +966,8 @@ export class SdlDocument implements Document {
     }
 
     insertBefore<T extends Node>(newChild: T, refChild: Node | null): T {
-        return this._document.insertBefore(newChild, refChild);
+        // return this._document.insertBefore(newChild, refChild);
+        return null;
     }
 
     isDefaultNamespace(namespace: string | null): boolean {
@@ -508,7 +1073,7 @@ export class SdlDocument implements Document {
     }
 
     get body(): HTMLElement {
-        return this._body;
+        return this as any;
     }
 
     set body(value: HTMLElement) {

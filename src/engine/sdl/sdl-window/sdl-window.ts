@@ -38,6 +38,8 @@ import {getCurrentMouseEvent} from '../event/mouse-event';
 import {getCurrentKeyEvent} from '../event/key-event';
 import {SdlDocument} from '../document/sdl-document';
 import {SdlCanvas} from '../canvas/sdl-canvas';
+import {SdlNavigator} from './sdl-navigator';
+import {SdlPerformance} from '../performance/sdl-performance';
 
 const NodeCanvasImage = require('canvas').Image;
 const createInternalCanvas = require('canvas').createCanvas;
@@ -243,6 +245,20 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     private _top: Window;
     private _window: Window;
 
+    constructor(private readonly options: WindowOptions) {
+        super();
+        this.init();
+        this._navigator = new SdlNavigator(this);
+        this._performance = new SdlPerformance(this);
+
+        this.createCanvas();
+        applicationContext.registerWindow(this);
+
+        setTimeout(() => {
+            this.emit('load');
+        }, 100);
+    }
+
     disableFullScreen(): void {
         this.fullScreen = false;
     }
@@ -269,6 +285,10 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
     addEventListener<K extends keyof WindowEventHandlersEventMap>(type: K, listener: (this: WindowEventHandlers, ev: WindowEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void {
         switch (type) {
+            case 'load':
+            case 'DOMContentLoaded':
+                this.on('load', listener);
+                break;
             case 'dragstart':
                 this.on('dropBegin', listener);
                 break;
@@ -508,15 +528,6 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     webkitRequestAnimationFrame(callback: FrameRequestCallback): number {
         return this.requestAnimationFrame(callback);
     }
-
-    constructor(private readonly options: WindowOptions) {
-        super();
-        this.init();
-
-        this.createCanvas();
-        applicationContext.registerWindow(this);
-    }
-
 
     get canvasWidth() {
         return this._context.width;
@@ -2214,7 +2225,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     }
 
     get console(): Console {
-        return this._console;
+        return console;
     }
 
     get crypto(): Crypto {
@@ -2310,11 +2321,11 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     }
 
     get pageXOffset(): number {
-        return this._pageXOffset;
+        return 0;
     }
 
     get pageYOffset(): number {
-        return this._pageYOffset;
+        return 0;
     }
 
     get parent(): Window {

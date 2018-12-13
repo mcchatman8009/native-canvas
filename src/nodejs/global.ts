@@ -17,6 +17,14 @@ export const window = createWindow();
 const dontOverride = new Set(Object.getOwnPropertyNames(globalCtx));
 const windowObj = window as any;
 
+windowObj.Image = Image;
+windowObj.HTMLCanvasElement = SdlCanvas;
+windowObj.CanvasRenderingContext2D = SdlContext;
+dontOverride.add('Image');
+dontOverride.add('HTMLCanvasElement');
+dontOverride.add('CanvasRenderingContext2D');
+dontOverride.add('XMLHttpRequest');
+
 for (const prop in windowObj) {
     if (!dontOverride.has(prop) && !prop.startsWith('_') && !prop.startsWith('constructor') && !prop.startsWith('console')) {
         const descriptor = Object.getOwnPropertyDescriptor(windowObj.__proto__, prop);
@@ -55,3 +63,4 @@ globalCtx.window = window;
 globalCtx.Image = Image;
 globalCtx.HTMLCanvasElement = SdlCanvas;
 globalCtx.CanvasRenderingContext2D = SdlContext;
+

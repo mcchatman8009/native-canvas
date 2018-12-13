@@ -217,6 +217,7 @@ export class SdlCanvas implements HTMLCanvasElement {
 
     constructor(public window: NativeWindow) {
         const sdlWindow = window as SdlWindow;
+        this._style = {} as any;
 
         this._canvas = sdlWindow.internalCanvas;
         this._nativeCtx = new SdlContext(this._canvas as HTMLCanvasElement);
@@ -1263,7 +1264,12 @@ export class SdlCanvas implements HTMLCanvasElement {
     }
 
     getBoundingClientRect(): ClientRect | DOMRect {
-        return undefined;
+        const bottom = 0;
+        const top = 0;
+        const left = 0;
+        const right = 0;
+
+        return {bottom, top, left, right, width: this.width, height: this.height};
     }
 
     getClientRects(): ClientRectList | DOMRectList {
