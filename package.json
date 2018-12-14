@@ -1,7 +1,7 @@
 {
   "name": "native-canvas",
   "version": "1.0.0",
-  "description": "",
+  "description": "A canvas library allows for a HTML canvas to run natively on NodeJs, without a WebBrowser",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -13,8 +13,36 @@
     "compile": "tsc",
     "clean": "rm -rf dist package-lock.json"
   },
-  "keywords": [],
-  "author": "",
+  "files": [
+    "dist",
+    "LICENSE",
+    "docs"
+  ],
+  "keywords": [
+    "canvas",
+    "native",
+    "native-javascript",
+    "typescript",
+    "node",
+    "nodejs",
+    "html-canvas",
+    "html5",
+    "html5-canvas",
+    "game",
+    "game-development",
+    "native-canvas",
+    "sdl",
+    "es6",
+    "sdl2"
+  ],
+  "author": {
+    "name": "Marlon Chatman",
+    "email": "mcchatman8009@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcchatman8009/native-canvas"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/ffi": "^0.2.1",
