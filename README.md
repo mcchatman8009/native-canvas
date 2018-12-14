@@ -63,4 +63,4 @@ ctx.stroke();
 ![Example](./images/clock-example.png)
 
 ## Acknowledgments
-Special Thanks to @dmcquillan314 for the support!
+Special Thanks to [@dmcquillan314](https://github.com/dmcquillan314) for the support!
