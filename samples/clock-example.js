@@ -1,5 +1,7 @@
 require('../dist');
 
+window.title = "Clock Example";
+
 function clock() {
     const now = new Date();
     const ctx = canvas.getContext('2d');

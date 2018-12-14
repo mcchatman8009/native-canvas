@@ -2,6 +2,7 @@ require('../dist');
 
 const canvas = document.getElementById('internalCanvas');
 const ctx = canvas.getContext('2d');
+window.title = 'Bouncing Ball';
 let raf;
 
 const ball = {
