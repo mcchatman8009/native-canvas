@@ -606,10 +606,10 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
         const buffer = canvas.toBuffer('raw'); // ARGB32
 
-        console.time('renderFrame');
+        // console.time('renderFrame');
         this._context.renderFrame(buffer, width, height);
         // this._context.renderFrame(buffer, width, height);
-        console.timeEnd('renderFrame');
+        // console.timeEnd('renderFrame');
     }
 
     private init() {
