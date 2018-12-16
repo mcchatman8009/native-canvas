@@ -2,13 +2,17 @@ import {Uint32_ptr, int32, uint32, Uint32, uint32_ptr, Uint8, Uint8_ptr, voit, v
 import {loadLibrary} from './lib-loader';
 import {SDL_Palette_ptr, SDL_PixelFormat_ptr} from './sdl-pixels';
 import {SDL_Rect, SDL_Rect_ptr} from './sdl-rect';
-// import {SDL_Renderer_ptr, SDL_Texture_ptr} from './sdl-render';
 
 const FFI = require('ffi');
 const Struct = require('ref-struct');
 const ref = require('ref');
 
 const SDL = {} as any;
+
+const SDL_Texture = voit;
+const SDL_Texture_ptr = ref.refType(SDL_Texture);
+const SDL_Renderer = voit;
+const SDL_Renderer_ptr = ref.refType(SDL_Renderer);
 
 export const SDL_BlitMap_ptr = ref.refType(voit);
 export const SDL_Surface = Struct({
@@ -26,10 +30,6 @@ export const SDL_Surface = Struct({
     refcount: int32,
 });
 
-const SDL_Texture = voit;
-const SDL_Texture_ptr = ref.refType(SDL_Texture);
-const SDL_Renderer = voit;
-export const SDL_Renderer_ptr = ref.refType(SDL_Renderer);
 export const SDL_Surface_ptr = ref.refType(SDL_Surface);
 export const SDL_blit = FFI.Function(int32, [SDL_Surface_ptr, SDL_Rect_ptr, SDL_Surface_ptr, SDL_Rect_ptr]);
 
