@@ -77,10 +77,10 @@ export class SdlContext2d {
             this.texture = null;
         }
 
-        this.texture = this.createDynamicTexture(this.textureFormat);
         this.renderer.size = {w, h};
         this.width = w;
         this.height = h;
+        this.texture = this.createDynamicTexture(this.textureFormat);
     }
 
     getSize(): { w: number, h: number } {

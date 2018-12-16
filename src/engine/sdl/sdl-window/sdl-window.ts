@@ -546,7 +546,10 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     }
 
     set canvasWidth(val: number) {
-        if (this.options.fitCanvasInWindow) {
+        if (this.options.scaleCanvasToWindowSize) {
+            let size = this.size;
+            this.size = size = {w: val, h: size.h};
+        } else if (this.options.fitCanvasInWindow) {
             let size = this.size;
             this.size = size = {w: val, h: size.h};
             this._internalCanvas.width = size.w;
@@ -560,7 +563,10 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     }
 
     set canvasHeight(val: number) {
-        if (this.options.fitCanvasInWindow) {
+        if (this.options.scaleCanvasToWindowSize) {
+            let size = this.size;
+            this.size = size = {w: size.w, h: val};
+        } else if (this.options.fitCanvasInWindow) {
             let size = this.size;
             this.size = size = {w: size.w, h: val};
             this._internalCanvas.height = size.h;
@@ -600,9 +606,6 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
         const size = this.size;
 
-        if (!this.options.scaleCanvasToWindowSize) {
-            this._context.setSize(size.w, size.h);
-        }
 
         const buffer = canvas.toBuffer('raw'); // ARGB32
 
@@ -625,10 +628,8 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         // this._context = createSoftwareSdlContext2D(this._windowPtr);
 
         this.initSize();
+        this.initContextSize();
 
-        const size = this.size;
-
-        this._context.setSize(size.w, size.h);
         this._document = new SdlDocument(this);
 
         this.initEvents();
@@ -698,7 +699,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
                 this.emit('keyup', domEvent);
                 this._lastKeyboardEvent = null;
             } else if (event.type === SDL_EventType.SDL_TEXTINPUT) {
-                const buf: any = new Buffer(event.text.text);
+                const buf: any = Buffer.from(event.text.text);
                 const str = buf.reinterpretUntilZeros(1).toString();
 
                 const domEvent = getCurrentKeyEvent(event, this) as any;
@@ -773,12 +774,20 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this.initDragAndDropEvents();
     }
 
+    private initContextSize() {
+        const size = this.size;
+        this._context.setSize(size.w, size.h);
+    }
+
     private initSize() {
         this.size = SDL_GetWindowSize(this._windowPtr);
     }
 
     private triggerWindowSizeChange() {
         this.initSize();
+        if (!this.options.scaleCanvasToWindowSize) {
+            this.initContextSize();
+        }
 
         const size = this.size;
         this.initCanvasSize(size);
