@@ -698,8 +698,8 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
                 this.emit('keyup', domEvent);
                 this._lastKeyboardEvent = null;
             } else if (event.type === SDL_EventType.SDL_TEXTINPUT) {
-                // const buf: any = new Buffer(event.text.text);
-                const str = event.text.text;
+                const buf: any = new Buffer(event.text.text);
+                const str = buf.reinterpretUntilZeros(1).toString();
 
                 const domEvent = getCurrentKeyEvent(event, this) as any;
                 domEvent.key = str;
