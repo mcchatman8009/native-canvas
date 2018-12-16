@@ -59,6 +59,7 @@ ctx.stroke();
 ## Screenshots
 
 ![Bouncing Ball](./images/bouncing-ball.png)
+![Mario](./images/mario.png)
 
 ![Example](./images/clock-example.png)
 
