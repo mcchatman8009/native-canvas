@@ -1,27 +1,41 @@
 import {SdlWindow} from '../sdl-window/sdl-window';
 import {SDL_GetKeyName, SDL_GetScancodeName, SDL_Keymod} from '../sdl';
 
+const keycode = require('keycode');
+
 const keymod = SDL_Keymod;
 const KMOD_KEYS = Object.keys(keymod);
 
-export function getCurrentKeyEvent(sdlEvent: any, window: SdlWindow): KeyboardEvent {
-    const event = {} as any;
+const currentKeyEvent = {} as any;
 
-    event.preventDefault = () => window.preventDefault(event);
-    event.stopImmediatePropagation = () => window.stopImmediatePropagation(event);
-    event.stopPropagation = () => window.stopPropagation(event);
+export function getCurrentKeyEvent(sdlEvent: any, window: SdlWindow): KeyboardEvent {
+    currentKeyEvent.preventDefault = () => window.preventDefault(currentKeyEvent);
+    currentKeyEvent.stopImmediatePropagation = () => window.stopImmediatePropagation(currentKeyEvent);
+    currentKeyEvent.stopPropagation = () => window.stopPropagation(currentKeyEvent);
 
     const key = sdlEvent.key;
 
-    event.key = getKey(key);
-    event.keyCode = event.charCode = key.keysym.sym;
-    event.code = getKeyCode(key);
-    event.repeat = !!key.repeat;
+    currentKeyEvent.key = getKey(key);
+    const normalizedKey = currentKeyEvent.key
+        .toLowerCase()
+        .trim()
+        .replace('left ', '')
+        .replace('right ', '')
+        .trim();
 
-    event.ctrlKey = false;
-    event.shiftKey = false;
-    event.altKey = false;
-    event.metaKey = false;
+    if (normalizedKey.length > 0) {
+        currentKeyEvent.which = currentKeyEvent.keyCode = currentKeyEvent.charCode = keycode(normalizedKey);
+    } else {
+        currentKeyEvent.which = currentKeyEvent.keyCode = currentKeyEvent.charCode = keycode(currentKeyEvent.key);
+    }
+
+    currentKeyEvent.code = getKeyCode(key);
+    currentKeyEvent.repeat = !!key.repeat;
+
+    currentKeyEvent.ctrlKey = false;
+    currentKeyEvent.shiftKey = false;
+    currentKeyEvent.altKey = false;
+    currentKeyEvent.metaKey = false;
 
     KMOD_KEYS.forEach((modName) => {
         const keyModValue = keymod[modName];
@@ -34,36 +48,36 @@ export function getCurrentKeyEvent(sdlEvent: any, window: SdlWindow): KeyboardEv
         switch (modName) {
             case 'KMOD_LCTRL':
             case 'KMOD_RCTRL':
-                if (!event.ctrlKey) {
-                    event.ctrlKey = val;
+                if (!currentKeyEvent.ctrlKey) {
+                    currentKeyEvent.ctrlKey = val;
                 }
                 break;
 
             case 'KMOD_LSHIFT':
             case 'KMOD_RSHIFT':
-                if (!event.shiftKey) {
-                    event.shiftKey = val;
+                if (!currentKeyEvent.shiftKey) {
+                    currentKeyEvent.shiftKey = val;
                 }
 
                 break;
 
             case 'KMOD_RALT':
             case 'KMOD_LALT':
-                if (!event.altKey) {
-                    event.altKey = val;
+                if (!currentKeyEvent.altKey) {
+                    currentKeyEvent.altKey = val;
                 }
                 break;
 
             case 'KMOD_LGUI':
             case 'KMOD_RGUI':
-                if (!event.metaKey) {
-                    event.metaKey = val;
+                if (!currentKeyEvent.metaKey) {
+                    currentKeyEvent.metaKey = val;
                 }
                 break;
         }
     });
 
-    return event;
+    return currentKeyEvent;
 }
 
 function getKeyCode(key: any) {

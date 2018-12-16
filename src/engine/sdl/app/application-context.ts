@@ -1,14 +1,15 @@
 import {SdlWindow} from '../sdl-window/sdl-window';
 import EventEmitter = require('events');
 import {
-    createEventFilterFunction,
-    pollForEventsForever,
+    createEventFilterFunction, createSDLEvent,
     SDL_AddEventWatch,
     SDL_EventType,
-    SDL_Init,
+    SDL_Init, SDL_PollEvent, SDL_PumpEvents,
     SDL_Quit
 } from '../sdl';
 import {ApplicationFrameManager} from './application-frame-manager';
+import {createThreadFunction, SDL_CreateThread} from '../sdl/sdl-thread';
+import {SDL_Delay} from '../sdl/sdl-timer';
 
 const FPS = 60;
 
@@ -17,6 +18,7 @@ const FPS = 60;
 //     }
 // };
 let globalEventFilterFunction = null as any;
+let f = null;
 
 export class ApplicationContext extends EventEmitter implements ApplicationFrameManager {
     private windows: { [id: number]: SdlWindow } = {};
@@ -34,8 +36,6 @@ export class ApplicationContext extends EventEmitter implements ApplicationFrame
         this.initEvents();
         this.initEventWatcher();
         this.startRenderingFrames();
-
-        pollForEventsForever();
     }
 
     initEventWatcher() {
@@ -116,16 +116,27 @@ export class ApplicationContext extends EventEmitter implements ApplicationFrame
     private startRenderingFramesUsingInterval(): void {
         const targetRefreshRate = 1000 / FPS;
         // let lastRenderedTime = new Date().getTime();
-        setInterval(() => {
+        // let pendingEvent = 0;
+        const event = createSDLEvent();
+
+        SDL_PumpEvents();
+        const loop = () => {
+            // console.time('SDL_PollEvent');
+            SDL_PumpEvents();
+            // console.timeEnd('SDL_PollEvent');
+
             const currentTime = new Date().getTime();
+            // const diff = currentTime - lastRenderedTime;
+            // console.log(diff);
+
+            // console.time('renderFrame');
             this.renderFrame(currentTime);
-            // const timeToRender = currentTime - lastRenderedTime;
-            // const timeoutValue = Math.max(targetRefreshRate - timeToRender, 0);
+            // console.timeEnd('renderFrame');
 
-            // console.log(timeoutValue);
             // lastRenderedTime = currentTime;
-        }, targetRefreshRate);
+        };
 
+        setInterval(loop, targetRefreshRate);
     }
 
     private startRenderingFramesUsingTimeouts(): void {

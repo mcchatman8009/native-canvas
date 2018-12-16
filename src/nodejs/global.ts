@@ -11,7 +11,16 @@ import {NativeWindow} from '../window/native-window';
 import Global = NodeJS.Global;
 
 const globalCtx = (global as any);
-export const window = createWindow();
+let internalWindow;
+
+if (globalCtx.GLOAL_WINDOW_OPTS) {
+    internalWindow = createWindow(globalCtx.GLOAL_WINDOW_OPTS);
+} else {
+
+    internalWindow = createWindow();
+}
+
+export const window = internalWindow;
 
 /* tslint:disable*/
 const dontOverride = new Set(Object.getOwnPropertyNames(globalCtx));

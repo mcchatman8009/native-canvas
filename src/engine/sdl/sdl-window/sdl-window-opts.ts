@@ -20,6 +20,7 @@ export function sdlWindowDefaults(): WindowOptions {
     opts.allowHighDPI = false;
     opts.grabInputFocus = false;
     opts.fitCanvasInWindow = true;
+    opts.scaleCanvasToWindowSize = false;
 
     return opts;
 }
@@ -35,6 +36,7 @@ export function getSdlWindowOptions(options: WindowOptions): { title: string, x:
     /*tslint:disable*/
     let flags = 0;
 
+    flags |= SDL_WindowFlags.SDL_WINDOW_OPENGL;
     flags |= opts.fullscreen ? SDL_WindowFlags.SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
     flags |= opts.show ? SDL_WindowFlags.SDL_WINDOW_SHOWN : SDL_WindowFlags.SDL_WINDOW_HIDDEN;
     flags |= opts.resizable ? SDL_WindowFlags.SDL_WINDOW_RESIZABLE : 0;

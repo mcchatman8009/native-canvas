@@ -153,7 +153,7 @@ export function SDL_RenderSetLogicalSize(renderPtr: any, w: number, h: number) {
 }
 
 export function SDL_UpdateTexture(texturePtr: any, rect: Rect, pixels: Buffer, pitch: number) {
-    const rectPtr = createSDL_RectPtr(rect);
+    const rectPtr = (rect) ? createSDL_RectPtr(rect) : null;
     return SDL.SDL_UpdateTexture(texturePtr, rectPtr, pixels, pitch);
 }
 

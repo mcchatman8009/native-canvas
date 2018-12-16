@@ -104,6 +104,10 @@ export function SDL_GetWindowMinimumSize(windowPtr: any): { w: number, h: number
     };
 }
 
+export function SDL_UpdateWindowSurface(windowPtr: any): void {
+    SDL.SDL_UpdateWindowSurface(windowPtr);
+}
+
 export function SDL_SetWindowMinimumSize(windowPtr: any, w: number, h: number): void {
     SDL.SDL_SetWindowMinimumSize(windowPtr, w, h);
 }
@@ -218,6 +222,10 @@ export const float_ptr = exports.float_ptr = ref.refType(float);
 export const SDL_DisplayMode_ptr = exports.SDL_DisplayMode_ptr = ref.refType(SDL_DisplayMode);
 export const SDL_Window_ptr = exports.SDL_Window_ptr = ref.refType(SDL_Window);
 export const SDL_HitTest = exports.SDL_HitTest = FFI.Function(uint32, [SDL_Window_ptr, SDL_Point_ptr, voit_ptr]);
+
+export function SDL_GetWindowSurface(windowPtr: any) {
+    return SDL.SDL_GetWindowSurface(windowPtr);
+}
 
 loadLibrary({
     SDL_GetNumVideoDrivers: [int32, []],

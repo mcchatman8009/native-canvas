@@ -79,17 +79,21 @@ export enum SDL_EventType {
     SDL_LASTEVENT = 65535
 }
 
-export function pollForEventsForever() {
-    (function forever() {
-        const event = ref.alloc(SDL_Event);
-        const pending = SDL.SDL_PollEvent(event);
+export function createSDLEvent() {
 
-        if (pending) {
-            setImmediate(forever);
-        } else {
-            setTimeout(forever);
-        }
-    })();
+    return ref.alloc(SDL_Event);
+}
+export function pollForEventsForever() {
+    function forever() {
+        SDL.SDL_PollEvent(null);
+        // setTimeout(forever, 10);
+    }
+
+    setInterval(forever, 10);
+}
+
+export function SDL_PumpEvents() {
+    return SDL.SDL_PumpEvents();
 }
 
 export function SDL_PollEvent(sdlEvent: any) {

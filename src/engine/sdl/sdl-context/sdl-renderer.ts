@@ -4,8 +4,6 @@ import {
     SDL_CreateRenderer,
     SDL_CreateSoftwareRenderer,
     SDL_DestroyRenderer,
-    SDL_GetRenderDrawColor,
-    SDL_GetRendererOutputSize,
     SDL_GetRenderTarget,
     SDL_RenderClear,
     SDL_RenderCopy,
@@ -20,9 +18,11 @@ import {Rect} from '../shape/rect';
 
 export class SdlRenderer {
     private _color: Rgba;
+    private _size: { w: number, h: number };
 
     constructor(private _rendererPtr: any) {
         this._color = Rgba.createWhite();
+        this._size = SDL_RenderGetLogicalSize(this._rendererPtr);
     }
 
     destroy(): void {
@@ -46,24 +46,22 @@ export class SdlRenderer {
     }
 
     get color(): Rgba {
-        SDL_GetRenderDrawColor(this._rendererPtr, this._color);
+        // SDL_GetRenderDrawColor(this._rendererPtr, this._color);
         return this._color;
     }
 
     set color(rgba: Rgba) {
+        this._color = rgba;
         SDL_SetRenderDrawColor(this._rendererPtr, rgba.r, rgba.g, rgba.b, rgba.a);
     }
 
     set size(size: { w: number, h: number }) {
+        this._size = size;
         SDL_RenderSetLogicalSize(this._rendererPtr, size.w, size.h);
     }
 
     get size(): { w: number, h: number } {
-        return SDL_RenderGetLogicalSize(this._rendererPtr);
-    }
-
-    get outputSize(): { w: number, h: number } {
-        return SDL_GetRendererOutputSize(this._rendererPtr);
+        return this._size;
     }
 
     get target(): SdlTexture {

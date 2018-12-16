@@ -14,4 +14,5 @@ export interface WindowOptions {
     allowHighDPI?: boolean;
     grabInputFocus?: boolean;
     fitCanvasInWindow: boolean;
+    scaleCanvasToWindowSize: boolean;
 }

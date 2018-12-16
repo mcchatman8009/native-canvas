@@ -257,12 +257,12 @@ export class SdlContext implements CanvasRenderingContext2D {
     }
 
     arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void {
-        this.save();
-        this.beginPath();
+        // this.save();
+        // this.beginPath();
         const args = Array.from(arguments);
         this._ctx.arc.apply(this._ctx, args);
-        this.closePath();
-        this.restore();
+        // this.closePath();
+        // this.restore();
     }
 
     arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void {
@@ -278,9 +278,9 @@ export class SdlContext implements CanvasRenderingContext2D {
     }
 
     clearRect(x: number, y: number, w: number, h: number): void {
-        this._ctx.save();
+        // this._ctx.save();
         this._ctx.clearRect(0, 0, w, h);
-        this._ctx.restore();
+        // this._ctx.restore();
 
         // const fillStyle = this.fillStyle;
         // this.fillStyle = '#FFFFFF';
@@ -332,11 +332,11 @@ export class SdlContext implements CanvasRenderingContext2D {
     }
 
     ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void {
-        this.save();
-        this.beginPath();
+        // this.save();
+        // this.beginPath();
         this._ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise);
-        this.closePath();
-        this.restore();
+        // this.closePath();
+        // this.restore();
     }
 
     fill(fillRule?: any): void {
@@ -397,11 +397,11 @@ export class SdlContext implements CanvasRenderingContext2D {
     }
 
     rect(x: number, y: number, w: number, h: number): void {
-        this.save();
-        this.beginPath();
+        // this.save();
+        // this.beginPath();
         this._ctx.rect(x, y, w, h);
-        this.closePath();
-        this.restore();
+        // this.closePath();
+        // this.restore();
     }
 
     resetTransform(): void {

@@ -16,11 +16,11 @@ import {
     SDL_GetWindowMaximumSize,
     SDL_GetWindowMinimumSize,
     SDL_GetWindowPosition,
-    SDL_GetWindowSize,
+    SDL_GetWindowSize, SDL_GetWindowSurface,
     SDL_GetWindowTitle, SDL_HideWindow,
     SDL_MaximizeWindow,
     SDL_MinimizeWindow,
-    SDL_RaiseWindow,
+    SDL_RaiseWindow, SDL_RenderCopy,
     SDL_RestoreWindow, SDL_SetWindowBordered,
     SDL_SetWindowFullscreen,
     SDL_SetWindowGrab,
@@ -30,7 +30,7 @@ import {
     SDL_SetWindowPosition,
     SDL_SetWindowResizable,
     SDL_SetWindowSize,
-    SDL_SetWindowTitle, SDL_ShowWindow,
+    SDL_SetWindowTitle, SDL_ShowWindow, SDL_UpdateWindowSurface,
     SDL_WindowEventID,
     SDL_WindowFlags
 } from '../sdl';
@@ -47,12 +47,14 @@ const {loadImage} = require('canvas');
 
 export class SdlWindow extends EventEmitter implements NativeWindow {
     private _windowPtr: any;
+    private windowSurface: any;
     private _hasMouseEnteredWindow = false;
     private _lastMouseEvent: MouseEvent;
     private _lastKeyboardEvent: KeyboardEvent;
     private _context: SdlContext2d;
     private _internalCanvas: HTMLCanvasElement;
     private _canvas: HTMLCanvasElement;
+    private _size: { w: number, h: number };
 
     private _Blob: { prototype: Blob; new(blobParts?: any[], options?: BlobPropertyBag): Blob };
     private _URL: { prototype: URL; new(url: string, base?: (string | URL)): URL; createObjectURL(object: any): string; revokeObjectURL(url: string): void };
@@ -597,11 +599,17 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         const {width, height} = canvas;
 
         const size = this.size;
-        this._context.setSize(size.w, size.h);
+
+        if (!this.options.scaleCanvasToWindowSize) {
+            this._context.setSize(size.w, size.h);
+        }
 
         const buffer = canvas.toBuffer('raw'); // ARGB32
 
+        console.time('renderFrame');
         this._context.renderFrame(buffer, width, height);
+        // this._context.renderFrame(buffer, width, height);
+        console.timeEnd('renderFrame');
     }
 
     private init() {
@@ -609,11 +617,17 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
         // Create the window, and store its pointer;
         this._windowPtr = SDL_CreateWindow(sdlOpts.title, sdlOpts.x, sdlOpts.y, sdlOpts.w, sdlOpts.h, sdlOpts.flags);
+        // this.windowSurface = SDL_GetWindowSurface(this.windowPtr);
 
         // Create a SDL Context to handle the abstractions
         this._context = createSdlContext2D(this._windowPtr);
 
+        // this._context = createSoftwareSdlContext2D(this._windowPtr);
+
+        this.initSize();
+
         const size = this.size;
+
         this._context.setSize(size.w, size.h);
         this._document = new SdlDocument(this);
 
@@ -684,8 +698,8 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
                 this.emit('keyup', domEvent);
                 this._lastKeyboardEvent = null;
             } else if (event.type === SDL_EventType.SDL_TEXTINPUT) {
-                const buf: any = new Buffer(event.text.text);
-                const str = buf.reinterpretUntilZeros(1).toString();
+                // const buf: any = new Buffer(event.text.text);
+                const str = event.text.text;
 
                 const domEvent = getCurrentKeyEvent(event, this) as any;
                 domEvent.key = str;
@@ -759,7 +773,13 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this.initDragAndDropEvents();
     }
 
+    private initSize() {
+        this.size = SDL_GetWindowSize(this._windowPtr);
+    }
+
     private triggerWindowSizeChange() {
+        this.initSize();
+
         const size = this.size;
         this.initCanvasSize(size);
         this.emit('change', size.w, size.h);
@@ -863,11 +883,12 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     }
 
     set size(val: { w: number, h: number }) {
+        this._size = val;
         SDL_SetWindowSize(this._windowPtr, val.w, val.h);
     }
 
     get size(): { w: number, h: number } {
-        return SDL_GetWindowSize(this._windowPtr);
+        return this._size;
     }
 
     set minimumSize(wh: any) {
