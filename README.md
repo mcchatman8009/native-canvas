@@ -56,6 +56,21 @@ ctx.closePath();
 ctx.stroke();
 ```
 
+## Raspberry Pi
+
+To install on Raspberry Pi, you need to prep your environment
+by installing a few dev libraries.
+
+```bash
+sudo apt install \
+  libpixman-1-dev \
+  libcairo2-dev \
+  libpango1.0-dev \
+  libjpeg-dev \
+  libgif-dev \
+  libsdl2-dev
+```
+
 ## Screenshots
 
 ![Bouncing Ball](./images/bouncing-ball.png)
