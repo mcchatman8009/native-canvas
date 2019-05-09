@@ -1,6 +1,6 @@
 {
   "name": "native-canvas",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A canvas library allows for a HTML canvas to run natively on NodeJs, without a WebBrowser",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -55,7 +55,7 @@
     "@types/ref-array": "0.0.28",
     "@types/ref-union": "0.0.28",
     "tslint": "^5.11.0",
-    "typescript": "^3.1.6"
+    "typescript": "3.1.6"
   },
   "dependencies": {
     "@rgba-image/png": "^0.1.0",
