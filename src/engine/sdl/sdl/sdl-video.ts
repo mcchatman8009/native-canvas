@@ -3,9 +3,9 @@ import {SDL_Point_ptr, SDL_Rect_ptr} from './sdl-rect';
 import {SDL_Surface_ptr} from './sdl-surface';
 import {loadLibrary} from './lib-loader';
 
-const FFI = require('ffi');
-const Struct = require('ref-struct');
-const ref = require('ref');
+const FFI = require('ffi-napi');
+const ref = require('ref-napi');
+const Struct = require('ref-struct-di')(ref);
 
 const SDL = {} as any;
 

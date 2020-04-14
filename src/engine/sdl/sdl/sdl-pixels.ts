@@ -13,9 +13,9 @@ import {
 } from './types';
 import {loadLibrary} from './lib-loader';
 
-const ArrayType = require('ref-array');
-const Struct = require('ref-struct');
-const ref = require('ref');
+const ref = require('ref-napi');
+const ArrayType = require('ref-array-di')(ref);
+const Struct = require('ref-struct-di')(ref);
 
 const SDL = {} as any;
 

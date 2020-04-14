@@ -1,10 +1,10 @@
-import * as ref from 'ref';
-import * as ArrayType from 'ref-array';
+const ref = require('ref-napi');
+const ArrayType = require('ref-array-di')(ref);
 
-// const ref = require('ref');
+// const ref = require('ref-napi');
 export const voit = ref.types.void;
 export const int32 = ref.types.int32;
-export const uint32 =  ref.types.uint32;
+export const uint32 = ref.types.uint32;
 export const char = ref.types.char;
 export const Sint8 = char;
 export const uchar = ref.types.uchar;

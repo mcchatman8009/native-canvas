@@ -19,11 +19,11 @@ import {SDL_FingerID, SDL_TouchID} from './sdl-touch';
 import {SDL_JoystickID} from './sdl-joystick';
 import {SDL_Keysym} from './sdl-keyboard';
 
-const FFI = require('ffi');
-const ArrayType = require('ref-array');
-const Struct = require('ref-struct');
-const Union = require('ref-union');
-const ref = require('ref');
+const FFI = require('ffi-napi');
+const ref = require('ref-napi');
+const ArrayType = require('ref-array-di')(ref);
+const Struct = require('ref-struct-di')(ref);
+const Union = require('ref-union-di')(ref);
 
 const SDL = {} as any;
 

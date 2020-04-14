@@ -1,4 +1,4 @@
-const ffi = require('ffi');
+const ffi = require('ffi-napi');
 
 const SDL_LIBS_PATH = __dirname;
 

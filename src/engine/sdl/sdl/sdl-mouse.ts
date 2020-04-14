@@ -3,7 +3,7 @@ import {int32, int32_ptr, uint32, Uint32, Uint8_ptr, voit} from './types';
 import {loadLibrary} from './lib-loader';
 import {SDL_Surface_ptr} from './sdl-surface';
 
-const ref = require('ref');
+const ref = require('ref-napi');
 
 const SDL = {} as any;
 

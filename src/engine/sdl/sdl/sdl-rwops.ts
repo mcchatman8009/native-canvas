@@ -1,9 +1,9 @@
 import {loadLibrary} from './lib-loader';
 import {int32, size_t, string, Uint16, uint32, Uint32, Uint64, Uint8, Uint8_ptr, voit, voit_ptr} from './types';
 
-const Struct = require('ref-struct');
-const Union = require('ref-union');
-const ref = require('ref');
+const ref = require('ref-napi');
+const Struct = require('ref-struct-di')(ref);
+const Union = require('ref-union-di')(ref);
 
 const SDL = {} as any;
 

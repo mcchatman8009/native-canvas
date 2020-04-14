@@ -3,9 +3,9 @@ import {loadLibrary} from './lib-loader';
 import {SDL_Palette_ptr, SDL_PixelFormat_ptr} from './sdl-pixels';
 import {SDL_Rect, SDL_Rect_ptr} from './sdl-rect';
 
-const FFI = require('ffi');
-const Struct = require('ref-struct');
-const ref = require('ref');
+const FFI = require('ffi-napi');
+const ref = require('ref-napi');
+const Struct = require('ref-struct-di')(ref);
 
 const SDL = {} as any;
 

@@ -1,8 +1,8 @@
 import {Rect} from '../shape/rect';
 import {int32} from './types';
 
-const Struct = require('ref-struct');
-const ref = require('ref');
+const ref = require('ref-napi');
+const Struct = require('ref-struct-di')(ref);
 
 export const SDL_Point = exports.SDL_Point = Struct({
     x: int32,

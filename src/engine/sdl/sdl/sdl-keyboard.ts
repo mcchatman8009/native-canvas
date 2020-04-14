@@ -4,7 +4,8 @@ import {int32_ptr, string, Uint16, uint32, Uint32, Uint8_ptr, voit} from './type
 import {SDL_Keycode} from './sdl-keycode';
 import {SDL_Window_ptr} from './sdl-video';
 
-const Struct = require('ref-struct');
+const ref = require('ref-napi');
+const Struct = require('ref-struct-di')(ref);
 
 const SDL = {} as any;
 

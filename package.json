@@ -49,11 +49,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@types/ffi": "^0.2.1",
     "@types/node": "^10.12.2",
-    "@types/ref": "0.0.28",
-    "@types/ref-array": "0.0.28",
-    "@types/ref-union": "0.0.28",
     "tslint": "^5.11.0",
     "typescript": "3.1.6"
   },
@@ -61,11 +57,11 @@
     "@rgba-image/png": "^0.1.0",
     "canvas": "^2.1.0",
     "color-rgba": "^2.1.0",
-    "ffi": "github:node-ffi/node-ffi#169773d",
+    "ffi-napi": "2.4.7",
     "jsdom": "^13.0.0",
     "keycode": "^2.2.0",
     "pngjs": "^3.3.3",
-    "ref-array": "^1.2.0",
-    "ref-union": "^1.0.1"
+    "ref-array-di": "^1.2.1",
+    "ref-union-di": "^1.0.1"
   }
 }
