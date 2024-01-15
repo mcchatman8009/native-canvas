@@ -8,7 +8,6 @@ export class SdlNavigator implements Navigator {
     private readonly _authentication: WebAuthentication;
     private readonly _cookieEnabled: boolean;
     private readonly _doNotTrack: string | null;
-    private _gamepadInputEmulation: GamepadInputEmulationType;
     private readonly _geolocation: Geolocation;
     private readonly _hardwareConcurrency: number;
     private readonly _language: string;
@@ -33,6 +32,19 @@ export class SdlNavigator implements Navigator {
     private readonly _webdriver: boolean;
 
     constructor(private window: SdlWindow) {
+    }
+
+    clipboard: Clipboard;
+    credentials: CredentialsContainer;
+    permissions: Permissions;
+    share(data?: ShareData): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    registerProtocolHandler(scheme: string, url: string, title: string): void {
+        throw new Error('Method not implemented.');
+    }
+    unregisterProtocolHandler(scheme: string, url: string): void {
+        throw new Error('Method not implemented.');
     }
 
     confirmSiteSpecificTrackingException(args: ConfirmSiteSpecificExceptionsInformation): boolean {
@@ -95,14 +107,6 @@ export class SdlNavigator implements Navigator {
 
     vibrate(pattern: number | number[]): boolean {
         return false;
-    }
-
-    get gamepadInputEmulation(): GamepadInputEmulationType {
-        return this._gamepadInputEmulation;
-    }
-
-    set gamepadInputEmulation(value: GamepadInputEmulationType) {
-        this._gamepadInputEmulation = value;
     }
 
     get activeVRDisplays(): ReadonlyArray<VRDisplay> {

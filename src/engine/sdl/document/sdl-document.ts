@@ -101,7 +101,7 @@ export class SdlDocument implements Document {
     private _ondurationchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     private _onemptied: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     private _onended: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-    private _onerror: ErrorEventHandler;
+    private _onerror: OnErrorEventHandler;
     private _onfocus: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
     private _onfullscreenchange: ((this: Document, ev: Event) => any) | null;
     private _onfullscreenerror: ((this: Document, ev: Event) => any) | null;
@@ -452,10 +452,12 @@ export class SdlDocument implements Document {
         this._currentScript = value;
     }
 
+    // @ts-ignore
     get defaultView(): WindowProxy | null {
         return this._defaultView;
     }
 
+    // @ts-ignore
     set defaultView(value: WindowProxy | null) {
         this._defaultView = value;
     }
@@ -620,10 +622,12 @@ export class SdlDocument implements Document {
         this._namespaceURI = value;
     }
 
+    // @ts-ignore
     get nextSibling(): Node | null {
         return this._nextSibling;
     }
 
+    // @ts-ignore
     set nextSibling(value: Node | null) {
         this._nextSibling = value;
     }
@@ -652,10 +656,12 @@ export class SdlDocument implements Document {
         this._origin = value;
     }
 
+    // @ts-ignore
     get ownerDocument(): Document | null {
         return this._ownerDocument;
     }
 
+    // @ts-ignore
     set ownerDocument(value: Document | null) {
         this._ownerDocument = value;
     }
@@ -684,10 +690,12 @@ export class SdlDocument implements Document {
         this._plugins = value;
     }
 
+    // @ts-ignore
     get previousSibling(): Node | null {
         return this._previousSibling;
     }
 
+    // @ts-ignore
     set previousSibling(value: Node | null) {
         this._previousSibling = value;
     }
@@ -1377,11 +1385,11 @@ export class SdlDocument implements Document {
         this.window.onended = value;
     }
 
-    get onerror(): ErrorEventHandler {
+    get onerror(): OnErrorEventHandler {
         return this.window.onerror;
     }
 
-    set onerror(value: ErrorEventHandler) {
+    set onerror(value: OnErrorEventHandlerNonNull) {
         this.window.onerror = value;
     }
 

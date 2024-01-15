@@ -21,6 +21,7 @@ if (globalCtx.GLOAL_WINDOW_OPTS) {
 }
 
 export const window = internalWindow;
+export const document: Document = internalWindow.document;
 
 /* tslint:disable*/
 const dontOverride = new Set(Object.getOwnPropertyNames(globalCtx));
@@ -69,6 +70,7 @@ for (const prop in windowObj) {
 
 
 globalCtx.window = window;
+globalCtx.document = document;
 globalCtx.Image = Image;
 globalCtx.HTMLCanvasElement = SdlCanvas;
 globalCtx.CanvasRenderingContext2D = SdlContext;

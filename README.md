@@ -56,6 +56,15 @@ ctx.closePath();
 ctx.stroke();
 ```
 
+## Mac OS [Apple Silicon]
+
+To install you need to install system deps first.
+
+```bash
+brew install python
+arch -arm64 brew install pkg-config cairo pango jpeg giflib librsvg libffi
+```
+
 ## Raspberry Pi
 
 To install on Raspberry Pi, you need to prep your environment

@@ -122,7 +122,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     private _ondurationchange: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     private _onemptied: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     private _onended: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-    private _onerror: ErrorEventHandler;
+    private _onerror: OnErrorEventHandler;
     private _onfocus: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
     private _ongotpointercapture: ((this: GlobalEventHandlers, ev: PointerEvent) => any) | null;
     private _onhashchange: ((this: WindowEventHandlers, ev: HashChangeEvent) => any) | null;
@@ -250,6 +250,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
     constructor(private readonly options: WindowOptions) {
         super();
         this.init();
+        // @ts-ignore
         this._navigator = new SdlNavigator(this);
         this._performance = new SdlPerformance(this);
 
@@ -398,6 +399,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         return confirm(message, this._windowPtr);
     }
 
+    // @ts-ignore
     createImageBitmap(image: ImageBitmapSource, sx?: number, sy?: number, sw?: number, sh?: number): Promise<ImageBitmap> {
         return undefined;
     }
@@ -630,6 +632,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this.initSize();
         this.initContextSize();
 
+        // @ts-ignore
         this._document = new SdlDocument(this);
 
         this.initEvents();
@@ -1382,11 +1385,11 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this._onended = value;
     }
 
-    get onerror(): ErrorEventHandler {
+    get onerror(): OnErrorEventHandler {
         return this._onerror;
     }
 
-    set onerror(value: ErrorEventHandler) {
+    set onerror(value: OnErrorEventHandlerNonNull) {
         this._onerror = value;
     }
 
@@ -2212,14 +2215,17 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
 
             const opts = SdlWindow.windowDefaults();
             const wind = new SdlWindow(opts);
+            // @ts-ignore
             return new SdlCanvas(wind);
         } else if (typeof  window === 'string') {
             const opts = windowOptions || SdlWindow.windowDefaults();
 
             opts.title = window;
             const wind = new SdlWindow(opts);
+            // @ts-ignore
             return new SdlCanvas(wind);
         } else {
+            // @ts-ignore
             return new SdlCanvas(window);
         }
 
@@ -2402,6 +2408,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         return this._scrollbars;
     }
 
+    // @ts-ignore
     get self(): Window {
         return this._self;
     }
@@ -2430,7 +2437,9 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         return this._top;
     }
 
+    // @ts-ignore
     get window(): Window {
+        // @ts-ignore
         return this;
     }
 
@@ -2574,6 +2583,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this._scrollbars = value;
     }
 
+    // @ts-ignore
     set self(value: Window) {
         this._self = value;
     }
@@ -2602,6 +2612,7 @@ export class SdlWindow extends EventEmitter implements NativeWindow {
         this._top = value;
     }
 
+    // @ts-ignore
     set window(value: Window) {
         this._window = value;
     }

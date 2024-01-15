@@ -12,7 +12,6 @@ export class SdlCanvas implements HTMLCanvasElement {
     private _oncancel: (this: GlobalEventHandlers, ev: Event) => any;
     private _onclose: (this: GlobalEventHandlers, ev: Event) => any;
     private _ondragexit: (this: GlobalEventHandlers, ev: Event) => any;
-    private _onloadend: (this: GlobalEventHandlers, ev: ProgressEvent) => any;
     private _onresize: (this: GlobalEventHandlers, ev: UIEvent) => any;
     private _onsecuritypolicyviolation: (this: GlobalEventHandlers, ev: SecurityPolicyViolationEvent) => any;
     private _ontoggle: (this: GlobalEventHandlers, ev: Event) => any;
@@ -216,12 +215,14 @@ export class SdlCanvas implements HTMLCanvasElement {
     private _canvas: HTMLCanvasElement;
 
     constructor(public window: NativeWindow) {
+        // @ts-ignore
         const sdlWindow = window as SdlWindow;
         this._style = {} as any;
 
         this._canvas = sdlWindow.internalCanvas;
         this._nativeCtx = new SdlContext(this._canvas as HTMLCanvasElement);
 
+        // @ts-ignore
         sdlWindow.canvas = this;
     }
 
@@ -553,10 +554,12 @@ export class SdlCanvas implements HTMLCanvasElement {
         this._nextElementSibling = value;
     }
 
+    // @ts-ignore
     get nextSibling(): Node | null {
         return this._nextSibling;
     }
 
+    // @ts-ignore
     set nextSibling(value: Node | null) {
         this._nextSibling = value;
     }
@@ -649,10 +652,12 @@ export class SdlCanvas implements HTMLCanvasElement {
         this._previousElementSibling = value;
     }
 
+    // @ts-ignore
     get previousSibling(): Node | null {
         return this._previousSibling;
     }
 
+    // @ts-ignore
     set previousSibling(value: Node | null) {
         this._previousSibling = value;
     }
@@ -1263,6 +1268,7 @@ export class SdlCanvas implements HTMLCanvasElement {
         return undefined;
     }
 
+    // @ts-ignore
     getBoundingClientRect(): ClientRect | DOMRect {
         const bottom = 0;
         const top = 0;
@@ -1272,6 +1278,7 @@ export class SdlCanvas implements HTMLCanvasElement {
         return {bottom, top, left, right, width: this.width, height: this.height};
     }
 
+    // @ts-ignore
     getClientRects(): ClientRectList | DOMRectList {
         return undefined;
     }
@@ -1761,11 +1768,11 @@ export class SdlCanvas implements HTMLCanvasElement {
         this.window.onended = value;
     }
 
-    get onerror(): ErrorEventHandler {
+    get onerror(): OnErrorEventHandlerNonNull {
         return this.window.onerror;
     }
 
-    set onerror(value: ErrorEventHandler) {
+    set onerror(value: OnErrorEventHandlerNonNull) {
         this.window.onerror = value;
     }
 
@@ -1868,11 +1875,7 @@ export class SdlCanvas implements HTMLCanvasElement {
     }
 
     get onloadend(): ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null {
-        return this.window.onloadend;
-    }
-
-    set onloadend(value: ((this: GlobalEventHandlers, ev: ProgressEvent) => any) | null) {
-        this.window.onloadend = value;
+        return this.window.onload;
     }
 
     get onloadstart(): ((this: GlobalEventHandlers, ev: Event) => any) | null {
