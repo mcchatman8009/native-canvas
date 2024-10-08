@@ -7,7 +7,9 @@ import {SdlCanvas} from './canvas/sdl-canvas';
 export function createWindow(options: WindowOptions): NativeWindow {
     const opts = options || SdlWindow.windowDefaults();
     const sdlWindow = new SdlWindow(opts);
+    // @ts-ignore
     sdlWindow.canvas = new SdlCanvas(sdlWindow);
+    // @ts-ignore
     return sdlWindow;
 }
 

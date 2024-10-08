@@ -11,7 +11,7 @@
     "libs": "cp -r src/engine/sdl/sdl/libs dist/engine/sdl/sdl",
     "build": "rm -rf dist && mkdir -p dist/engine/sdl/sdl/libs && cp -r src/engine/sdl/sdl/libs dist/engine/sdl/sdl && tsc",
     "compile": "tsc",
-    "clean": "rm -rf dist package-lock.json"
+    "clean": "rm -rf dist"
   },
   "files": [
     "dist",
@@ -51,13 +51,13 @@
   "devDependencies": {
     "@types/node": "^10.12.2",
     "tslint": "^5.11.0",
-    "typescript": "3.1.6"
+    "typescript": "^3.2.4"
   },
   "dependencies": {
     "@rgba-image/png": "^0.1.0",
-    "canvas": "^2.1.0",
+    "canvas": "^2.11.2",
     "color-rgba": "^2.1.0",
-    "ffi-napi": "2.4.7",
+    "ffi-napi": "^4.0.3",
     "jsdom": "^13.0.0",
     "keycode": "^2.2.0",
     "pngjs": "^3.3.3",

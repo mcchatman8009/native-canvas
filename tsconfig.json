@@ -3,7 +3,8 @@
     "outDir": "./dist",
     "lib": [
       "es6",
-      "dom"
+      "dom",
+      "esnext"
     ],
     "sourceMap": true,
     "module": "commonjs",
